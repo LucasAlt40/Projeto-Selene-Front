@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PaymentApiService {
-  private readonly apiUrl = 'http://localhost:8080/checkout';
+  private readonly apiUrl = 'http://10.242.157.144:8080/checkout';
 
   constructor(private http: HttpClient) {}
 

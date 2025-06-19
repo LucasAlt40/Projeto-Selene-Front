@@ -44,7 +44,7 @@ export class PaymentFormComponent {
           nonNullable: true,
           validators: [Validators.email],
         }),
-        document: new FormControl('', {
+        tax_id: new FormControl('', {
           nonNullable: true,
           validators: [Validators.maxLength(14), Validators.minLength(14)],
         }),
@@ -75,8 +75,8 @@ export class PaymentFormComponent {
         nonNullable: true,
         validators: [Validators.required, Validators.min(1)],
       }),
-      unitAmount: new FormControl(
-        { value: 132.5, disabled: true },
+      unit_amount: new FormControl(
+        { value: 1325, disabled: true },
         { nonNullable: true }
       ),
       imageUrl: new FormControl(
@@ -94,6 +94,7 @@ export class PaymentFormComponent {
     const normalizedValues: RequestCheckout = {
       customer: {
         ...formValues.customer,
+        tax_id: this.removeCpfMask(formValues.customer.tax_id),
         phone: {
           ...formValues.customer.phone,
           country: this.ensureCountryPrefix(formValues.customer.phone.country),
@@ -122,5 +123,8 @@ export class PaymentFormComponent {
 
   private ensureCountryPrefix(country: string): string {
     return country.startsWith('+') ? country : `+${country}`;
+  }
+  private removeCpfMask(cpf: string): string {
+    return cpf.replace(/\D/g, '');
   }
 }

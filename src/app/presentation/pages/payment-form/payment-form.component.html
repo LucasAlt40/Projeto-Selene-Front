@@ -1,4 +1,4 @@
-<h1>Compra do produto novo</h1>
+<h1 class="text-5xl">Compra do produto novo</h1>
 
 <form
   [formGroup]="formPayment"
@@ -23,7 +23,7 @@
           <label for="name">Documento</label>
           <p-inputmask
             mask="999.999.999-99"
-            formControlName="document"
+            formControlName="tax_id"
             placeholder="000.000.000-00"
           />
         </div>
@@ -82,7 +82,7 @@
         <div class="flex flex-col">
           <label for="name">Valor unitário</label>
           <p-inputnumber
-            formControlName="unitAmount"
+            formControlName="unit_amount"
             inputId="currency-brl"
             mode="currency"
             currency="BRL"

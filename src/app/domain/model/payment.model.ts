@@ -1,7 +1,7 @@
 export type Customer = {
   name: string;
   email: string;
-  document: string;
+  tax_id: string;
   phone: {
     country: string;
     area: number;
@@ -12,7 +12,7 @@ export type Customer = {
 export type Item = {
   name: string;
   quantity: number;
-  unitAmount: number;
+  unit_amount: number;
   imageUrl: string;
 };
 
