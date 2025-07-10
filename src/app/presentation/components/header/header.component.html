@@ -1,0 +1,8 @@
+<header class="flex justify-between items-center gap-2 p-2 bg-teal-800">
+  <h1>Selene</h1>
+
+  <p>Araraquara</p>
+
+  <p-menu #menu [model]="items" [popup]="true" />
+  <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+</header>

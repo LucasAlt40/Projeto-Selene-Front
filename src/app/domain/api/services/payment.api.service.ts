@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LinkResponse, RequestCheckout } from '../../model/payment.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaymentApiService {
-  private readonly apiUrl = 'http://10.242.157.144:8080/checkout';
+  private readonly apiUrl = environment.apiUrl + '/checkout';
 
   constructor(private http: HttpClient) {}
 
