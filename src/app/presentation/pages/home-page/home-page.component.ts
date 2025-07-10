@@ -1,10 +1,38 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-home-page',
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, CarouselModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
-export class HomePageComponent {}
+export class HomePageComponent {
+  responsiveOptions: any[] | undefined;
+
+  ngOnInit() {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1400px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '1199px',
+        numVisible: 3,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '575px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
+  }
+}

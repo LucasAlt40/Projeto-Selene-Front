@@ -1,3 +1,26 @@
 <app-header />
 
 <h1 class="text-3xl">Eventos em destaque</h1>
+
+<div class="card">
+  <p-carousel
+    [value]="[0, 2, 3]"
+    [numVisible]="3"
+    [numScroll]="3"
+    [circular]="false"
+    [responsiveOptions]="responsiveOptions"
+  >
+    <ng-template let-product #item>
+      <div class="border border-surface rounded-border m-2 p-4">
+        <div class="mb-4">
+          <div class="relative mx-auto">
+            <img
+              src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg"
+              class="w-full rounded-border"
+            />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
