@@ -1,7 +1,5 @@
 <app-header />
 
-<h1 class="text-3xl">Eventos em destaque</h1>
-
 <div class="card">
   <p-carousel
     [value]="[0, 2, 3]"
@@ -24,3 +22,81 @@
     </ng-template>
   </p-carousel>
 </div>
+
+<section>
+  <h4>Esportes</h4>
+  <div class="card">
+    <p-carousel
+      [value]="[0, 2, 3, 5, 6, 7, 8, 9, 10, 11]"
+      [numVisible]="6"
+      [numScroll]="6"
+      [circular]="true"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template let-product #item>
+        <div class="border border-surface rounded-border m-2 p-4">
+          <div class="mb-4">
+            <div class="relative mx-auto">
+              <img
+                src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg"
+                class="w-full rounded-border"
+              />
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</section>
+
+<section>
+  <h4>Shows</h4>
+  <div class="card">
+    <p-carousel
+      [value]="[0, 2, 3, 5, 6, 7, 8, 9, 10, 11]"
+      [numVisible]="6"
+      [numScroll]="6"
+      [circular]="true"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template let-product #item>
+        <div class="border border-surface rounded-border m-2 p-4">
+          <div class="mb-4">
+            <div class="relative mx-auto">
+              <img
+                src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg"
+                class="w-full rounded-border"
+              />
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</section>
+
+<section>
+  <h4>Outros</h4>
+  <div class="card">
+    <p-carousel
+      [value]="[0, 2, 3, 5, 6, 7, 8, 9, 10, 11]"
+      [numVisible]="6"
+      [numScroll]="6"
+      [circular]="true"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template let-product #item>
+        <div class="border border-surface rounded-border m-2 p-4">
+          <div class="mb-4">
+            <div class="relative mx-auto">
+              <img
+                src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg"
+                class="w-full rounded-border"
+              />
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</section>
