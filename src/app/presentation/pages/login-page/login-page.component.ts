@@ -37,10 +37,16 @@ export class LoginPageComponent {
 
     this.authService.login(email, password).subscribe({
       next: (res) => {
-        this.cookieService.set('auth_token', res.token);
+        const token = res.token;
+        const expiresIn = res.expiresIn;
+
+        if (token && expiresIn) {
+          const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
+          this.cookieService.set('auth_token', token, expireDate);
+        }
       },
       complete: () => {
-        this.router.navigate(['/payment']);
+        this.router.navigate(['/event']);
       },
     });
   }
