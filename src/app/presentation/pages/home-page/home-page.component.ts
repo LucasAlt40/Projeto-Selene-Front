@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
 import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-home-page',
-  imports: [HeaderComponent, CarouselModule],
+  imports: [CarouselModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
