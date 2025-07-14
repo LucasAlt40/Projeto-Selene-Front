@@ -8,12 +8,21 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { CookieService } from 'ngx-cookie-service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login-page',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    PasswordModule,
+    InputTextModule,
+    ButtonModule,
+  ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
 })
