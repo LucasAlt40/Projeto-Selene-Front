@@ -3,7 +3,8 @@ import { environment } from '../../../../environments/environment';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const excludedEndpoints = ['/auth'];
-  const token = "";
+  const token =
+    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsdWNhcy5hbHQ0MEBnbWFpbC5jb20iLCJleHAiOjE3NTI0NTcxNzQsImlhdCI6MTc1MjQ1MzU3NH0.KkJdfsqkS2RhMoSpGhCQQIuM4Hq2dlXOl7iUzvf4QaM';
 
   const isApiRequest = req.url.startsWith(environment.apiUrl);
   const isExcludedEndpoint = excludedEndpoints.some((endpoint) =>
