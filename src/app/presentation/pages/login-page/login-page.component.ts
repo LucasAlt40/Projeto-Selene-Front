@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'app-login-page',
   imports: [FormsModule, ReactiveFormsModule],
@@ -17,39 +19,29 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent {
   loginForm: FormGroup;
-  errorMessage: string = "";
 
-  constructor(private authService: AuthApiService, private fb: FormBuilder, private router: Router) {
+  constructor(
+    private authService: AuthApiService,
+    private fb: FormBuilder,
+    private router: Router,
+    private cookieService: CookieService
+  ) {
     this.loginForm = this.fb.group({
-      email: ['lucas.alt40@gmail.com'],
-      password: ['@teste123'],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
   onSubmit() {
     const { email, password } = this.loginForm.value;
 
-    this.authService.login(email, password).subscribe(
-      {
-        next: (res) => {
-          console.log("res", res);
-          /* guardar nos cookies/local storage */
-
-          this.router.navigate(["/payment"])
-        },
-        error: (err) => {
-          console.error("errozão", err)
-          this.errorMessage = "Falha ao tentar se logar!"
-        },
-        complete: () => {
-          console.log("deu certo");
-        }
-      }
-    );
-
-    /* this.authService.login(email, password).subscribe((res) => {
-      console.log("res", res);
-    }); */
-
+    this.authService.login(email, password).subscribe({
+      next: (res) => {
+        this.cookieService.set('auth_token', res.token);
+      },
+      complete: () => {
+        this.router.navigate(['/payment']);
+      },
+    });
   }
 }
