@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
 
@@ -13,6 +13,8 @@ import { ButtonModule } from 'primeng/button';
 })
 export class HeaderComponent {
   items: MenuItem[] | undefined;
+
+  @Input() tilte: string = "Selene"
 
   ngOnInit() {
     this.items = [

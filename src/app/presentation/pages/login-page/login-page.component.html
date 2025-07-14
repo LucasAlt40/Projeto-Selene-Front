@@ -1,0 +1,42 @@
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-sm mx-auto mt-10 p-6 bg-white rounded-2xl shadow"
+>
+  <div class="mb-4">
+    <label for="email" class="block mb-1 text-gray-700 font-semibold"
+      >Usuário:</label
+    >
+    <input
+      id="email"
+      type="text"
+      formControlName="email"
+      class="w-full px-3 py-2 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="Digite seu usuário"
+    />
+  </div>
+
+  <div class="mb-6">
+    <label for="password" class="block mb-1 text-gray-700 font-semibold"
+      >Senha:</label
+    >
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      class="w-full px-3 py-2 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="Digite sua senha"
+    />
+  </div>
+
+  @if(errorMessage) {
+  <span class="text-red-500" >{{ errorMessage }}</span>
+  }
+
+  <button
+    type="submit"
+    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+  >
+    Entrar
+  </button>
+</form>
