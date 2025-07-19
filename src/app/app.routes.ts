@@ -20,7 +20,6 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -29,6 +28,7 @@ export const routes: Routes = [
       {
         path: 'payment',
         component: PaymentFormComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'eventos',

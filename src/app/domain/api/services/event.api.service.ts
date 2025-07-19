@@ -13,16 +13,9 @@ export class EventApiService {
 
   constructor(private http: HttpClient) {}
 
-  findAll(searchEventDTO?: SearchEventDTO) {
-    const params = new HttpParams()
-      .set('page', searchEventDTO?.page?.toString() ?? 1)
-      .set('pageSize', searchEventDTO?.pageSize?.toString() ?? 10);
-
-    return this.http.get<{ content: Event[]; pageable: Pageable }>(
-      `${this.apiUrl}/find`,
-      {
-        params,
-      }
+  findAll(params?: HttpParams) {
+    return this.http.get<{ content: Event[]; pageable: any }>(
+      `${this.apiUrl}/find`, { params }
     );
   }
 }
