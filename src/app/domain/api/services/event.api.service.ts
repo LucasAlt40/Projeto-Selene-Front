@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Event } from '../../model/event.model';
 
 @Injectable({
@@ -11,9 +11,9 @@ export class EventApiService {
 
   constructor(private http: HttpClient) {}
 
-  findAll() {
+  findAll(params?: HttpParams) {
     return this.http.get<{ content: Event[]; pageable: any }>(
-      `${this.apiUrl}/find`
+      `${this.apiUrl}/find`, { params }
     );
   }
 }
