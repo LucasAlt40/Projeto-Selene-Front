@@ -3,19 +3,23 @@
   (ngSubmit)="onSubmit()"
   class="max-w-sm mx-auto mt-10 p-6 border-gray-500 border-2 rounded-2xl shadow"
 >
-  <div class="field mb-4">
-    <label for="email" class="block mb-2 font-semibold text-900">Usuário</label>
+
+  <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+  <p class="text-center mb-6">
+
+  <div class="field mb-4 w-full">
+    <label for="email" class="block mb-2 font-semibold text-900">Email</label>
     <input
       id="email"
       type="text"
       pInputText
       formControlName="email"
-      placeholder="Digite seu usuário"
+      placeholder="Digite seu email"
       class="w-full"
     />
   </div>
 
-  <div class="field mb-6">
+  <div class="field  w-full">
     <label for="password" class="block mb-2 font-semibold text-900"
       >Senha</label
     >
@@ -24,14 +28,18 @@
       formControlName="password"
       placeholder="Digite sua senha"
       [feedback]="false"
+      styleClass="w-full"
       class="w-full"
     />
   </div>
+  <p class="text-end mb-6 mt-4 text-gray-400">Não tem uma conta? <a routerLink="/register" class="text-blue-500">Registrar</a></p>
+
 
   <p-button
     type="submit"
     label="Entrar"
     class="w-full"
+    styleClass="w-full"
     [disabled]="loginForm.invalid"
   />
 </form>
