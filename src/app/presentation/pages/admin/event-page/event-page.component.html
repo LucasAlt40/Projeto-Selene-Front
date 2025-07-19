@@ -1,16 +1,17 @@
 <main class="container mx-auto py-6">
   <div class="flex flex-col gap-4">
     <div class="flex justify-end">
-      <p-button icon="pi pi-plus" label="Cadastrar evento" />
+      <p-button icon="pi pi-plus" label="Cadastrar evento" styleClass="p-button-primary" />
     </div>
 
     <p-table
       [value]="events"
       [paginator]="true"
-      [rows]="2"
+      [rows]="10"
       [totalRecords]="totalRecords"
       [lazy]="true"
       (onLazyLoad)="loadEvents($event)"
+      (onPage)="loadEvents($event)"
       [loading]="loading"
       showGridlines
       stripedRows

@@ -1,0 +1,40 @@
+<div
+  class="transition-[width] duration-300 flex flex-col min-h-screen text-white"
+  [ngClass]="{
+    'w-[250px]': !isCollapsed,
+    'w-[70px]': isCollapsed
+  }"
+  [style.backgroundColor]="'oklch(20.8% 0.042 265.755)'"
+>
+  <div class="cursor-pointer p-4 text-right" (click)="toggleSidebar()">
+    <i class="pi" [ngClass]="isCollapsed ? 'pi-angle-right' : 'pi-angle-left'"></i>
+  </div>
+
+  <div class="flex items-center justify-center h-20">
+   <!--  @if (!isCollapsed) {
+      <img src="assets/logo.png" alt="Logo" class="max-w-[120px]" />
+    } @else {
+      <i class="pi pi-bolt text-white text-2xl"></i>
+    } -->
+
+    <i class="pi pi-bolt text-white text-2xl"></i>
+  </div>
+
+  <ul class="list-none p-0 m-0">
+    @for (item of items; track $index) {
+      <li
+        [routerLink]="item.routerLink"
+        routerLinkActive="bg-white/20"
+        class="flex items-center gap-3 p-4 cursor-pointer text-white hover:bg-white/10 transition-colors"
+        [ngClass]="isCollapsed ? 'justify-center' : 'justify-start'"
+      >
+        <i class="pi" [ngClass]="item.icon"></i>
+        @if (!isCollapsed) {
+          <span>{{ item.label }}</span>
+        }
+      </li>
+    } @empty {
+      <li class="p-4">Não há itens no menu.</li>
+    }
+  </ul>
+</div>

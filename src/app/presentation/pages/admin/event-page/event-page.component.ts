@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { EventApiService } from '../../../domain/api/services/event.api.service';
-import { Event } from '../../../domain/model/event.model';
 import { ButtonModule } from 'primeng/button';
+import { HttpParams } from '@angular/common/http';
+import { EventApiService } from '../../../../domain/api/services/event.api.service';
+import { Event } from '../../../../domain/model/event.model';
 
 @Component({
   selector: 'app-event-page',
   imports: [TableModule, ButtonModule],
   templateUrl: './event-page.component.html',
-  styleUrl: './event-page.component.css',
 })
 export class EventPageComponent {
   events: Event[] = [];
@@ -27,13 +27,14 @@ export class EventPageComponent {
     const page = (event.first ?? 0) / (event.rows ?? 10);
     const pageSize = event.rows ?? 10;
 
-    const params = {
-      page,
-      pageSize,
-    };
+    const params = new HttpParams()
+      .set('page', page + 1)
+      .set('pageSize', pageSize);
 
     this.eventService.findAll(params).subscribe({
       next: (res) => {
+        console.log(res);
+
         this.events = res.content;
         this.totalRecords = res.pageable.total;
         this.loading = false;
