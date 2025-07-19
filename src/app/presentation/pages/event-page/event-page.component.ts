@@ -1,23 +1,48 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { EventApiService } from '../../../domain/api/services/event.api.service';
 import { Event } from '../../../domain/model/event.model';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-event-page',
-  imports: [TableModule],
+  imports: [TableModule, ButtonModule],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.css',
 })
 export class EventPageComponent {
   events: Event[] = [];
+  totalRecords = 0;
+  loading = false;
 
   constructor(private eventService: EventApiService) {}
 
   ngOnInit() {
-    this.eventService.findAll().subscribe((res) => {
-      this.events = res.content;
+    this.loading = true;
+  }
+
+  loadEvents(event: any) {
+    this.loading = true;
+
+    const page = (event.first ?? 0) / (event.rows ?? 10);
+    const pageSize = event.rows ?? 10;
+
+    const params = {
+      page,
+      pageSize,
+    };
+
+    this.eventService.findAll(params).subscribe({
+      next: (res) => {
+        this.events = res.content;
+        this.totalRecords = res.pageable.total;
+        this.loading = false;
+      },
+      error: () => {
+        this.events = [];
+        this.totalRecords = 0;
+        this.loading = false;
+      },
     });
   }
 }

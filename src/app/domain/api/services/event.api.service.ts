@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Event } from '../../model/event.model';
+import { Pageable } from '../../model/pageable.model';
+import { SearchEventDTO } from '../dto/search-event-dto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +13,16 @@ export class EventApiService {
 
   constructor(private http: HttpClient) {}
 
-  findAll() {
-    return this.http.get<{ content: Event[]; pageable: any }>(
-      `${this.apiUrl}/find`
+  findAll(searchEventDTO?: SearchEventDTO) {
+    const params = new HttpParams()
+      .set('page', searchEventDTO?.page?.toString() ?? 1)
+      .set('pageSize', searchEventDTO?.pageSize?.toString() ?? 10);
+
+    return this.http.get<{ content: Event[]; pageable: Pageable }>(
+      `${this.apiUrl}/find`,
+      {
+        params,
+      }
     );
   }
 }

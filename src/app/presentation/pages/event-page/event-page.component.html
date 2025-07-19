@@ -1,16 +1,35 @@
-<p-table [value]="events" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
+<main class="container mx-auto py-6">
+  <div class="flex flex-col gap-4">
+    <div class="flex justify-end">
+      <p-button icon="pi pi-plus" label="Cadastrar evento" />
+    </div>
+
+    <p-table
+      [value]="events"
+      [paginator]="true"
+      [rows]="2"
+      [totalRecords]="totalRecords"
+      [lazy]="true"
+      (onLazyLoad)="loadEvents($event)"
+      [loading]="loading"
+      showGridlines
+      stripedRows
+      [tableStyle]="{ 'min-width': '50rem' }"
+    >
+      <ng-template pTemplate="header">
         <tr>
-            <th>Id</th>
-            <th>Titulo</th>
-            <th>Descrição</th>
+          <th>Id</th>
+          <th>Título</th>
+          <th>Descrição</th>
         </tr>
-    </ng-template>
-    <ng-template #body let-event>
+      </ng-template>
+      <ng-template pTemplate="body" let-event>
         <tr>
-            <td>{{ event.id }}</td>
-            <td>{{ event.title }}</td>
-            <td>{{ event.description }}</td>
+          <td>{{ event.id }}</td>
+          <td>{{ event.title }}</td>
+          <td>{{ event.description }}</td>
         </tr>
-    </ng-template>
-</p-table>
+      </ng-template>
+    </p-table>
+  </div>
+</main>
