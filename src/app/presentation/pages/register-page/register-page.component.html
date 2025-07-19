@@ -1,0 +1,153 @@
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-sm mx-auto mt-10 p-6 border-gray-500 border-2 rounded-2xl shadow"
+>
+  <h2 class="text-2xl font-bold mb-6 text-center">Cadastro</h2>
+  <p class="text-center mb-6"></p>
+
+  <div class="field mb-4 w-full">
+    <label for="email" class="block mb-2 font-semibold text-900"
+      >Email <span class="text-red-500">*</span></label
+    >
+    <input
+      id="email"
+      type="text"
+      pInputText
+      formControlName="email"
+      placeholder="Digite seu email"
+      class="w-full"
+    />
+
+    @if ( registerForm.get('email')?.invalid &&
+    registerForm.get('email')?.touched) {
+    <div class="text-red-500 text-sm mt-1">
+      @if(registerForm.get('email')?.errors?.['email']) { 
+        Email inválido.
+      } @if(registerForm.get('email')?.errors?.['required']) { 
+        Email é obrigatório. 
+      }
+    </div>
+    }
+  </div>
+
+  <div class="field mb-4 w-full">
+    <label for="name" class="block mb-2 font-semibold text-900"
+      >Nome Completo <span class="text-red-500">*</span></label
+    >
+    <input
+      id="name"
+      type="text"
+      pInputText
+      formControlName="name"
+      placeholder="Digite seu nome completo"
+      class="w-full"
+    />
+    @if ( registerForm.get('name')?.invalid &&
+    registerForm.get('name')?.touched) {
+    <div class="text-red-500 text-sm mt-1">
+      @if(registerForm.get('name')?.errors?.['required']) {
+        Nome completo é obrigatório.
+      }
+    </div>
+    }
+  </div>
+  <div class="field mb-4 w-full">
+    <label for="document" class="block mb-2 font-semibold text-900">
+      CPF <span class="text-red-500">*</span></label
+    >
+    <p-input-mask
+      id="document"
+      formControlName="document"
+      placeholder="000.000.000-00"
+      mask="999.999.999-99"
+      appInputValidation
+      class="w-full"
+    />
+    @if ( registerForm.get('document')?.invalid &&
+    registerForm.get('document')?.touched) {
+    <div class="text-red-500 text-sm mt-1">
+      @if(registerForm.get('document')?.errors?.['invalidCPF']) { 
+        CPF inválido.
+      } @if(registerForm.get('document')?.errors?.['required']) { 
+        CPF é obrigatório. 
+      }
+    </div>
+    }
+  </div>
+  <div class="field mb-4 w-full">
+    <label for="phone" class="block mb-2 font-semibold text-900"
+      >Telefone <span class="text-red-500">*</span></label
+    >
+    <p-input-mask
+      id="phone"
+      formControlName="phone"
+      placeholder="(XX) XXXXX-XXXX"
+      mask="(99) 99999-9999"
+      class="w-full"
+    />
+    @if ( registerForm.get('phone')?.invalid &&
+    registerForm.get('phone')?.touched) {
+    <div class="text-red-500 text-sm mt-1">
+      @if(registerForm.get('phone')?.errors?.['required']) { 
+        Telefone é obrigatório. 
+      }
+    </div>
+    }
+  </div>
+
+  <div class="field mb-4 w-full">
+    <label for="password" class="block mb-2 font-semibold text-900"
+      >Senha <span class="text-red-500">*</span></label
+    >
+    <p-password
+      id="password"
+      formControlName="password"
+      placeholder="Digite sua senha"
+      [feedback]="false"
+      styleClass="w-full"
+      class="w-full"
+    />
+
+    @if ( registerForm.get('password')?.invalid &&
+    registerForm.get('password')?.touched) {
+    <div class="text-red-500 text-sm mt-1">
+      @if(registerForm.get('password')?.errors?.['required']) { 
+        Senha é obrigatória. 
+      }
+    </div>
+    }
+  </div>
+
+  <div class="field mb-4 w-full">
+    <label for="confirmPassword" class="block mb-2 font-semibold text-900"
+      >Confirmação de Senha <span class="text-red-500">*</span></label
+    >
+    <p-password
+      id="confirmPassword"
+      formControlName="confirmPassword"
+      placeholder="Confirme sua senha"
+      [feedback]="false"
+      styleClass="w-full"
+      class="w-full"
+    />
+    @if (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) {
+      <div class="text-red-500 text-sm mt-1">
+        @if(registerForm.get('confirmPassword')?.errors?.['required']) {
+          Confirmação de senha é obrigatória
+        }
+      </div>
+    }
+    @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
+      <div class="text-red-500 text-sm mt-1">
+        As senhas não coincidem
+      </div>
+    }
+  </div>
+
+  <p class="text-end mb-6 mt-4 text-gray-400">
+    Já tem uma conta? <a routerLink="/login" class="text-blue-500">Entrar</a>
+  </p>
+
+  <p-button type="submit" label="Entrar" class="w-full" styleClass="w-full" />
+</form>
