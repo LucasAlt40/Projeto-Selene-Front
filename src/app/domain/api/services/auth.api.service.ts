@@ -3,6 +3,14 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
+export type RegisterRequest = {
+  email: string;
+  password: string;
+  document: string;
+  name: string;
+  phone: string;
+};
 @Injectable({
   providedIn: 'root',
 })
@@ -23,4 +31,8 @@ export class AuthApiService {
       }
     );
   }
+
+  public register(registerRequest: RegisterRequest) {
+    return this.http.post<void>(`${this.apiUrl}/signup`, registerRequest);
+  } 
 }

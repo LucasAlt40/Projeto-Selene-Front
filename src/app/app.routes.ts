@@ -5,12 +5,18 @@ import { LoginPageComponent } from './presentation/pages/login-page/login-page.c
 import { EventPageComponent } from './presentation/pages/event-page/event-page.component';
 import { authGuard } from './domain/guards/auth.guard';
 import { loginGuard } from './domain/guards/login.guard';
+import { RegisterPageComponent } from './presentation/pages/register-page/register-page.component';
 
 export const routes: Routes = [
   {
     path: 'login',
     canActivate: [loginGuard],
     component: LoginPageComponent,
+  },
+  {
+    path: 'register',
+    canActivate: [loginGuard],
+    component: RegisterPageComponent,
   },
   {
     path: '',
