@@ -1,0 +1,133 @@
+<form
+  #form="ngForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-xl mx-auto mt-10 p-6 border-gray-500 border-2 rounded-2xl shadow"
+>
+  <div class="field mb-4">
+    <label for="title" class="block mb-2 font-semibold text-900">Título</label>
+    <input
+      id="title"
+      type="text"
+      pInputText
+      [(ngModel)]="event.title"
+      name="title"
+      placeholder="Digite o título do evento"
+      class="w-full"
+      required
+      maxlength="255"
+    />
+  </div>
+
+  <div class="field mb-4">
+    <label for="description" class="block mb-2 font-semibold text-900">Descrição</label>
+    <textarea
+      id="description"
+      rows="3"
+      pInputTextarea
+      [(ngModel)]="event.description"
+      name="description"
+      placeholder="Descreva o evento"
+      class="w-full"
+      required
+    ></textarea>
+  </div>
+
+  <div class="field mb-4">
+    <label class="block mb-2 font-semibold text-900">Imagem do Evento</label>
+    <p-fileUpload
+      mode="basic"
+      name="image"
+      chooseIcon="pi pi-upload"
+      accept="image/*"
+      maxFileSize="1000000"
+      [auto]="true"
+      [customUpload]="true"
+      (uploadHandler)="onImageUpload($event)"
+      chooseLabel="Selecionar Imagem"
+    ></p-fileUpload>
+    <div *ngIf="previewUrl" class="mt-4">
+      <label class="block mb-2 font-semibold text-900">Prévia da Imagem:</label>
+      <img [src]="previewUrl" alt="Prévia da imagem" class="max-w-xs rounded-xl border border-gray-300 shadow" />
+    </div>
+  </div>
+
+  <fieldset class="border-t pt-4 mt-4">
+    <legend class="text-lg font-semibold mb-2">Endereço</legend>
+
+    <div class="field mb-3">
+      <label for="street" class="block mb-1 font-medium">Rua</label>
+      <input
+        id="street"
+        type="text"
+        pInputText
+        [(ngModel)]="event.address.street"
+        name="street"
+        class="w-full"
+        placeholder="Rua Exemplo"
+        required
+      />
+    </div>
+
+    <div class="field mb-3">
+      <label for="city" class="block mb-1 font-medium">Cidade</label>
+      <input
+        id="city"
+        type="text"
+        pInputText
+        [(ngModel)]="event.address.city"
+        name="city"
+        class="w-full"
+        placeholder="Cidade"
+        required
+      />
+    </div>
+
+    <div class="field mb-3">
+      <label for="state" class="block mb-1 font-medium">Estado</label>
+      <input
+        id="state"
+        type="text"
+        pInputText
+        [(ngModel)]="event.address.state"
+        name="state"
+        class="w-full"
+        placeholder="Estado"
+        required
+      />
+    </div>
+
+    <div class="field mb-3">
+      <label for="zipCode" class="block mb-1 font-medium">CEP</label>
+      <input
+        id="zipCode"
+        type="text"
+        pInputText
+        [(ngModel)]="event.address.zipCode"
+        name="zipCode"
+        class="w-full"
+        placeholder="00000-000"
+        required
+      />
+    </div>
+  </fieldset>
+
+  <div class="field mb-4">
+    <label for="eventDate" class="block mb-2 font-semibold text-900">Data do Evento</label>
+    <p-calendar
+      id="eventDate"
+      [(ngModel)]="event.date"
+      name="date"
+      [showIcon]="true"
+      placeholder="Selecione a data"
+      class="w-full"
+      required
+    ></p-calendar>
+  </div>
+
+  <p-button
+    type="submit"
+    label="Cadastrar Evento"
+    class="w-full mt-6"
+    [disabled]="form.invalid"
+  />
+</form>

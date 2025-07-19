@@ -5,6 +5,7 @@ import { LoginPageComponent } from './presentation/pages/login-page/login-page.c
 import { EventPageComponent } from './presentation/pages/event-page/event-page.component';
 import { authGuard } from './domain/guards/auth.guard';
 import { loginGuard } from './domain/guards/login.guard';
+import { AddEventPageComponent } from './presentation/pages/add-event-page/add-event-page.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,10 @@ export const routes: Routes = [
       {
         path: 'eventos',
         component: EventPageComponent,
+      },
+      {
+        path: 'event/create',
+        component: AddEventPageComponent,
       },
     ],
   },
