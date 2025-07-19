@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CarouselModule } from 'primeng/carousel';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -9,7 +9,7 @@ import { HttpParams } from '@angular/common/http';
 import { Event } from '../../../domain/model/event.model';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
-import { Button } from "primeng/button";
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-home-page',
@@ -20,27 +20,20 @@ import { Button } from "primeng/button";
     InputIconModule,
     InputText,
     DatePipe,
-    Button
-],
+    Button,
+  ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
 export class HomePageComponent implements OnInit {
-  eventsHighlighted: Event[] = [];
+  eventsHighlighted = signal<Event[]>([]);
   responsiveOptions: any[] | undefined;
   imagesBaseUrl: string = environment.imagesBaseUrl;
 
   constructor(private eventService: EventApiService) {}
 
   ngOnInit() {
-    const params = new HttpParams().set('page', '0').set('size', '5');
-
-    this.eventService.findAll(params).subscribe((events) => {
-      this.eventsHighlighted = events.content.filter(
-        (event) => event.previewImageUrl
-      );
-    });
-
+    this.loadEvents(1, this.eventsHighlighted);
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
@@ -63,5 +56,16 @@ export class HomePageComponent implements OnInit {
         numScroll: 1,
       },
     ];
+  }
+
+  private loadEvents(categoryId: number, items: any) {
+    const params = new HttpParams()
+      .set('page', '0')
+      .set('size', '5')
+      .set('categoryId', categoryId.toString());
+
+    this.eventService.findAll(params).subscribe((events) => {
+      items.set(events.content.filter((event) => event.previewImageUrl));
+    });
   }
 }
