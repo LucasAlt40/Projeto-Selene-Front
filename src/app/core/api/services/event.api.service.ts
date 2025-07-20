@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Event } from '../../model/event.model';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 type AddressRequestDto = {
@@ -10,6 +11,7 @@ type AddressRequestDto = {
   city: string;
   state: string;
   zipCode: string;
+  number: number;
 };
 
 type EventRequestDto = {
@@ -17,6 +19,12 @@ type EventRequestDto = {
   description: string;
   date: string;       
   address: AddressRequestDto;
+  categoryId: number;
+};
+
+type Category = {
+  id: number;
+  name: string;
 };
 
 @Injectable({
@@ -46,6 +54,14 @@ export class EventApiService {
     return this.http.put<void>(`${this.apiUrl}/update/${idEvent}`, event);
   }
 
+ public getCategories(): Observable<{ id: number; name: string }[]> {
+  return this.http
+    .get<{ content: { id: number; name: string }[] }>(
+      `${environment.apiUrl}/event/event-category/find`
+    )
+    .pipe(map(res => res.content)); 
+}
+
   private mappingEventRequest(event: EventRequestDto, file: File){
     const formData = new FormData()
 
@@ -56,7 +72,11 @@ export class EventApiService {
     formData.append("event.address.city", event.address.city)
     formData.append("event.address.state", event.address.state)
     formData.append("event.address.zipCode", event.address.zipCode)
+    formData.append("event.address.number", event.address.number.toString())
+
     formData.append("file", file)
+    formData.append("event.categoryId", event.categoryId.toString());
+
 
     return formData
   }
