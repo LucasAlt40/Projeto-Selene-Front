@@ -1,5 +1,3 @@
-
-
 <div class="card">
   <p-carousel
     [value]="eventsHighlighted()"
@@ -19,132 +17,35 @@
   </p-carousel>
 </div>
 
-<section class="container mx-auto my-4">
-  <h2 class="text-xl font-bold mb-4">Teatro</h2>
-  <div class="flex gap-4 w-full justify-between">
-    @for (event of eventsHighlighted(); track $index) {
-    <div class="p-3 flex flex-col gap-3 rounded shadow">
-      <img
-        [src]="imagesBaseUrl + event.previewImageUrl"
-        [alt]="event.title"
-        class="w-68 h-48 object-cover rounded mb-2"
-      />
-      <div>
-        <h3 class="text-lg font-semibold">{{ event.title }}</h3>
-        <p>{{ event.date | date : "dd/MM/yyyy" }}</p>
-      </div>
-      <p-button
-        icon="pi pi-info"
-        styleClass="p-button-outlined"
-        label="Ver Detalhes"
-        class="mt-2"
-        routerLink="/evento/{{ event.id }}"
-      />
-    </div>
-    }
-  </div>
-</section>
+@for (group of categorizedEvents(); track group.category) {
+  @if (group.events.length > 0) {
+    <section class="container mx-auto my-4">
+      <h2 class="text-xl font-bold mb-4">{{ group.category }}</h2>
 
-<section class="container mx-auto my-4">
-  <h2 class="text-xl font-bold mb-4">Esportes</h2>
-  <div class="flex gap-4 w-full justify-between">
-    @for (event of eventsHighlighted(); track $index) {
-    <div class="p-3 flex flex-col gap-3 rounded shadow">
-      <img
-        [src]="imagesBaseUrl + event.previewImageUrl"
-        [alt]="event.title"
-        class="w-68 h-48 object-cover rounded mb-2"
-      />
-      <div>
-        <h3 class="text-lg font-semibold">{{ event.title }}</h3>
-        <p>{{ event.date | date : "dd/MM/yyyy" }}</p>
+      <div class="flex gap-4 w-full overflow-x-auto">
+        @for (event of group.events; track event.id) {
+          <div
+            class="p-3 flex-shrink-0 flex flex-col gap-3 rounded shadow min-w-[270px]"
+          >
+            <img
+              [src]="imagesBaseUrl + event.previewImageUrl"
+              [alt]="event.title"
+              class="w-68 h-48 object-cover rounded mb-2"
+            />
+            <div>
+              <h3 class="text-lg font-semibold">{{ event.title }}</h3>
+              <p>{{ event.date | date: 'dd/MM/yyyy' }}</p>
+            </div>
+            <p-button
+              icon="pi pi-info-circle"
+              styleClass="p-button-outlined"
+              label="Ver Detalhes"
+              class="mt-2"
+              [routerLink]="'/events/' + event.id"
+            />
+          </div>
+        }
       </div>
-      <p-button
-        icon="pi pi-info"
-        styleClass="p-button-outlined"
-        label="Ver Detalhes"
-        class="mt-2"
-        routerLink="/events/{{ event.id }}"
-      />
-    </div>
-    }
-  </div>
-</section>
-
-<section class="container mx-auto my-4">
-  <h2 class="text-xl font-bold mb-4">Shows</h2>
-  <div class="flex gap-4 w-full justify-between">
-    @for (event of eventsHighlighted(); track $index) {
-    <div class="p-3 flex flex-col gap-3 rounded shadow">
-      <img
-        [src]="imagesBaseUrl + event.previewImageUrl"
-        [alt]="event.title"
-        class="w-68 h-48 object-cover rounded mb-2"
-      />
-      <div>
-        <h3 class="text-lg font-semibold">{{ event.title }}</h3>
-        <p>{{ event.date | date : "dd/MM/yyyy" }}</p>
-      </div>
-      <p-button
-        icon="pi pi-info"
-        styleClass="p-button-outlined"
-        label="Ver Detalhes"
-        class="mt-2"
-        routerLink="/events/{{ event.id }}"
-      />
-    </div>
-    }
-  </div>
-</section>
-
-<section class="container mx-auto my-4">
-  <h2 class="text-xl font-bold mb-4">Games</h2>
-  <div class="flex gap-4 w-full justify-between">
-    @for (event of eventsHighlighted(); track $index) {
-    <div class="p-3 flex flex-col gap-3 rounded shadow">
-      <img
-        [src]="imagesBaseUrl + event.previewImageUrl"
-        [alt]="event.title"
-        class="w-68 h-48 object-cover rounded mb-2"
-      />
-      <div>
-        <h3 class="text-lg font-semibold">{{ event.title }}</h3>
-        <p>{{ event.date | date : "dd/MM/yyyy" }}</p>
-      </div>
-      <p-button
-        icon="pi pi-info"
-        styleClass="p-button-outlined"
-        label="Ver Detalhes"
-        class="mt-2"
-        routerLink="/events/{{ event.id }}"
-      />
-    </div>
-    }
-  </div>
-</section>
-
-<section class="container mx-auto my-4">
-  <h2 class="text-xl font-bold mb-4">Cinema</h2>
-  <div class="flex gap-4 w-full justify-between">
-    @for (event of eventsHighlighted(); track $index) {
-    <div class="p-3 flex flex-col gap-3 rounded shadow">
-      <img
-        [src]="imagesBaseUrl + event.previewImageUrl"
-        [alt]="event.title"
-        class="w-68 h-48 object-cover rounded mb-2"
-      />
-      <div>
-        <h3 class="text-lg font-semibold">{{ event.title }}</h3>
-        <p>{{ event.date | date : "dd/MM/yyyy" }}</p>
-      </div>
-      <p-button
-        icon="pi pi-info"
-        styleClass="p-button-outlined"
-        label="Ver Detalhes"
-        class="mt-2"
-        routerLink="/events/{{ event.id }}"
-      />
-    </div>
-    }
-  </div>
-</section>
+    </section>
+  }
+}
