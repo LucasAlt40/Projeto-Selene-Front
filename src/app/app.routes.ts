@@ -12,6 +12,7 @@ import { RegisterPageComponent } from './presentation/pages/user/register-page/r
 import { HomePageComponent } from './presentation/pages/user/home-page/home-page.component';
 import { EventDetailPageComponent } from './presentation/pages/user/event-detail-page/event-detail-page.component';
 import { LayoutUserComponent } from './presentation/components/user/layout/layout-user.component';
+import { PaymentPageComponent } from './presentation/pages/user/payment-page/payment-page.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,11 @@ export const routes: Routes = [
         path: 'evento/:id',
         component: EventDetailPageComponent
       },
+      {
+        path: 'evento-ingresso/:id',
+        component: PaymentPageComponent
+      },
+      // Isso aqui é só para teste, depois remover
       {
         path: 'payment',
         component: PaymentFormComponent,
