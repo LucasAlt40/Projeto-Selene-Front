@@ -36,8 +36,6 @@ export class HomePageComponent implements OnInit {
     this.loadEvents(1, this.eventsHighlighted);
     this.loadCategories();
 
-    console.log('Events', this.categorizedEvents);
-
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
@@ -75,14 +73,12 @@ export class HomePageComponent implements OnInit {
   private loadCategories() {
     this.eventService.getAllEventCategories().subscribe((response) => {
       this.categories.set(response.content);
-      console.log('Categories loaded:', this.categories());
       this.loadCategorizedEvents();
     });
   }
 
   private loadCategorizedEvents() {
     this.categories().forEach((category) => {
-      console.log('category', category.id);
       const params = new HttpParams()
         .set('page', '0')
         .set('pageSize', '5')
@@ -101,7 +97,6 @@ export class HomePageComponent implements OnInit {
           },
         ]);
 
-        console.log(this.categorizedEvents());
       });
     });
   }
