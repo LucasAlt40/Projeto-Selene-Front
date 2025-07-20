@@ -59,12 +59,12 @@ export class EventApiService {
     return this.http.put<void>(`${this.apiUrl}/update/${idEvent}`, event);
   }
 
- public getCategories(): Observable<{ id: number; name: string }[]> {
+  getCategories(): Observable<{ id: number; name: string }[]> {
   return this.http
     .get<{ content: { id: number; name: string }[] }>(
       `${environment.apiUrl}/event/event-category/find`
     )
-    .pipe(map(res => res.content)); 
+    .pipe(map(res => res.content));
 }
 
   public getEventById(id: number): Observable<Event> {
