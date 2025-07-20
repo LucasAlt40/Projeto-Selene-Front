@@ -26,6 +26,11 @@ type Category = {
   name: string;
 };
 
+
+type CategoryRequestDto = {
+  name: string;
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -83,6 +88,10 @@ export class EventApiService {
     );
   }
 
+  public createEventCategory(category: CategoryRequestDto): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/event-category/add`, category);
+  }
+  
   private mappingEventRequest(event: EventRequestDto, file: File) {
     const formData = new FormData();
 

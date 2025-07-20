@@ -10,6 +10,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
 import { EventApiService } from '../../../../core/api/services/event.api.service';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-add-event-page',
@@ -23,6 +24,7 @@ import { EventApiService } from '../../../../core/api/services/event.api.service
     FileUploadModule,
     DropdownModule,
     DatePickerModule,
+    TextareaModule,
   ],
   templateUrl: './add-event-page.component.html',
 })

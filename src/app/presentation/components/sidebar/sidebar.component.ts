@@ -23,6 +23,11 @@ export class SidebarComponent {
       icon: 'pi pi-tags',
       routerLink: ['/admin/categorias-evento'],
     },
+    {
+      label: 'Sair',
+      icon: 'pi pi-sign-out',
+      routerLink: ['/login'],
+    },
   ];
 
   toggleSidebar() {

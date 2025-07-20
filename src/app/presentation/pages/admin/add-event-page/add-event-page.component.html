@@ -25,6 +25,9 @@
           >Descrição</label
         >
         <textarea
+          rows="5"
+          cols="30"
+          pTextarea
           id="description"
           rows="3"
           pInputTextarea
@@ -40,17 +43,19 @@
         <label class="block mb-2 font-semibold text-900"
           >Imagem do Evento</label
         >
-        <p-fileUpload
-          mode="basic"
-          name="image"
-          chooseIcon="pi pi-upload"
-          accept="image/*"
-          maxFileSize="1000000"
-          [auto]="true"
-          [customUpload]="true"
-          (uploadHandler)="onImageUpload($event)"
-          chooseLabel="Selecionar Imagem"
-        ></p-fileUpload>
+        <div class="flex">
+            <p-fileUpload
+            mode="basic"
+            name="image"
+            chooseIcon="pi pi-upload"
+            accept="image/*"
+            maxFileSize="1000000"
+            [auto]="true"
+            [customUpload]="true"
+            (uploadHandler)="onImageUpload($event)"
+            chooseLabel="Selecionar Imagem"
+          ></p-fileUpload>
+        </div>
         <div *ngIf="previewUrl" class="mt-4">
           <label class="block mb-2 font-semibold text-900"
             >Prévia da Imagem:</label
@@ -172,6 +177,7 @@
 
   <div class="w-full flex justify-end py-4">
     <p-button
+      icon="pi pi-plus"
       type="submit"
       label="Cadastrar Evento"
       [loading]="loadingSubmit"
