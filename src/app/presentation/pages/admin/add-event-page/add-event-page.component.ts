@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
+
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
@@ -35,7 +36,7 @@ export class AddEventPageComponent {
       city: '',
       state: '',
       zipCode: '',
-      number: null as number | null,
+      number: 0,
     },
   };
 
@@ -54,6 +55,7 @@ export class AddEventPageComponent {
   ngOnInit(): void {
     this.eventService.getCategories().subscribe({
       next: (res) => {
+        console.log('Categorias carregadas:', res);
         this.categories = res;
       },
       error: (err) => {
@@ -106,12 +108,21 @@ export class AddEventPageComponent {
     const payload = {
       ...this.event,
       date: this.datePipe.transform(this.event.date, "yyyy-MM-dd'T'HH:mm:ss")!,
-      categoryId: this.selectedCategoryId,
+      categoryId: this.selectedCategoryId!,
+      address: {
+        ...this.event.address,
+        number: this.event.address.number!,
+      },
     };
 
     this.eventService.createEvent(payload, this.selectedImageFile).subscribe({
       next: (res) => {
-        this.router.navigate(['admin/eventos/', res.id]);
+        alert('Evento criado com sucesso!');
+        this.router.navigate(['/eventos/', res.id]);
+      },
+      error: (err) => {
+        console.error('Erro ao criar evento:', err);
+        alert('Erro ao criar evento');
       },
     });
   }

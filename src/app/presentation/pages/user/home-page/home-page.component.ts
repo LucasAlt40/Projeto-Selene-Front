@@ -13,10 +13,11 @@ import { Button } from 'primeng/button';
 import { environment } from '../../../../../environments/environment';
 import { EventApiService } from '../../../../core/api/services/event.api.service';
 import { Event } from '../../../../core/model/event.model';
+import { ListEvent } from '../../../components/list-event/list-event.component';
 
 @Component({
   selector: 'app-home-page',
-  imports: [CarouselModule, RouterModule, DatePipe, Button],
+  imports: [CarouselModule, RouterModule,ListEvent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
