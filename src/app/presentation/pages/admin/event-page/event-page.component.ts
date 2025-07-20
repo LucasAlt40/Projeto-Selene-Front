@@ -4,10 +4,11 @@ import { ButtonModule } from 'primeng/button';
 import { HttpParams } from '@angular/common/http';
 import { EventApiService } from '../../../../core/api/services/event.api.service';
 import { Event } from '../../../../core/model/event.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-event-page',
-  imports: [TableModule, ButtonModule],
+  imports: [TableModule, ButtonModule, RouterModule],
   templateUrl: './event-page.component.html',
 })
 export class EventPageComponent {

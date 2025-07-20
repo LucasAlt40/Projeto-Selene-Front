@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
-import { EventApiService } from '../../../core/api/services/event.api.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
+import { EventApiService } from '../../../../core/api/services/event.api.service';
 
 @Component({
   selector: 'app-add-event-page',
@@ -20,13 +20,12 @@ import { DatePickerModule } from 'primeng/datepicker';
     CalendarModule,
     ButtonModule,
     FileUploadModule,
-    DropdownModule, 
+    DropdownModule,
     DatePickerModule,
   ],
   templateUrl: './add-event-page.component.html',
-  styleUrls: ['./add-event-page.component.css'],
 })
-export class AddEventPageComponent implements OnInit {
+export class AddEventPageComponent {
   event = {
     title: '',
     description: '',
@@ -48,8 +47,8 @@ export class AddEventPageComponent implements OnInit {
 
   constructor(
     private eventService: EventApiService,
-    private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -93,7 +92,6 @@ export class AddEventPageComponent implements OnInit {
       !address.state ||
       !address.zipCode ||
       !address.number ||
-
       !this.selectedCategoryId
     ) {
       alert('Preencha todos os campos obrigatórios.');
@@ -106,10 +104,15 @@ export class AddEventPageComponent implements OnInit {
     }
 
     const payload = {
-  ...this.event,
-  date: this.datePipe.transform(this.event.date, "yyyy-MM-dd'T'HH:mm:ss")!,
-  categoryId: this.selectedCategoryId,
-};
-  }
+      ...this.event,
+      date: this.datePipe.transform(this.event.date, "yyyy-MM-dd'T'HH:mm:ss")!,
+      categoryId: this.selectedCategoryId,
+    };
 
+    this.eventService.createEvent(payload, this.selectedImageFile).subscribe({
+      next: (res) => {
+        this.router.navigate(['admin/eventos/', res.id]);
+      },
+    });
+  }
 }
