@@ -8,10 +8,11 @@ import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { HttpParams } from '@angular/common/http';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ListEvent } from '../../../components/list-event/list-event.component';
 
 @Component({
   selector: 'app-event-detail-page',
-  imports: [DatePipe, TagModule, ButtonModule, RouterModule, SkeletonModule],
+  imports: [DatePipe, TagModule, ButtonModule, RouterModule, SkeletonModule, ListEvent],
   templateUrl: './event-detail-page.component.html',
   styleUrl: './event-detail-page.component.css',
 })
