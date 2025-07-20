@@ -1,19 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { isTokenExpired } from '../utils';
+import { AuthService } from '../services/auth.service';
 
 export const loginGuard: CanActivateFn = (_, __): boolean => {
-  const cookieService = inject(CookieService);
   const router = inject(Router);
+  const authService = inject(AuthService);
 
-  const token = cookieService.get('auth_token');
-
-  if (token && !isTokenExpired(token)) {
-    router.navigate(['/'])
+  if (authService.isAuthenticated()) {
+    router.navigate(['/']);
     return false;
   }
 
-  return true; 
+  return true;
 };
-

@@ -12,12 +12,24 @@
     <i class="pi pi-user" style="font-size: 2rem"></i>
 
     <div class="flex flex-col">
+      @if(isAuthenticated) {
+      <div class="flex gap-3">
+        <span class="text-xs">{{ user?.name }}</span>
+        <p
+          (click)="logout()"
+          class="text-xs hover:text-red-400 transition cursor-pointer"
+        >
+          <i class="pi pi-sign-out" style="font-size: 1rem"></i>
+        </p>
+      </div>
+      } @else {
       <a routerLink="/login" class="text-xs hover:text-gray-400 transition"
         >Entrar</a
       >
       <a routerLink="/register" class="text-xs hover:text-gray-400 transition"
         >Cadastre-se</a
       >
+      }
     </div>
   </div>
 </header>

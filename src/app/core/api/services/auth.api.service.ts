@@ -3,7 +3,6 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
 export type RegisterRequest = {
   email: string;
   password: string;
@@ -19,20 +18,21 @@ export class AuthApiService {
 
   constructor(private http: HttpClient) {}
 
-  public login(
-    email: string,
-    password: string
-  ): Observable<{ token: string; expiresIn: number }> {
-    return this.http.post<{ token: string; expiresIn: number }>(
-      `${this.apiUrl}/login`,
-      {
-        email,
-        password,
-      }
-    );
+  public login(email: string, password: string) {
+    return this.http.post<{
+      token: string;
+      expiresIn: number;
+      user: {
+        id: string;
+        name: string;
+      };
+    }>(`${this.apiUrl}/login`, {
+      email,
+      password,
+    });
   }
 
   public register(registerRequest: RegisterRequest) {
     return this.http.post<void>(`${this.apiUrl}/signup`, registerRequest);
-  } 
+  }
 }
