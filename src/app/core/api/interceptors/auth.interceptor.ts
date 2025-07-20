@@ -13,9 +13,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const token = cookieService.get('auth_token');
   const excludedEndpoints = [
-    '/auth',
-    '/event/find',
-    'event/event-category/find',
+    '/auth'
   ];
   const isApiRequest = req.url.startsWith(environment.apiUrl);
   const isExcludedEndpoint = excludedEndpoints.some((endpoint) =>

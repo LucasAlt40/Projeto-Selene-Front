@@ -10,6 +10,7 @@ import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { DividerModule } from 'primeng/divider';
 import { OrderApiService } from '../../../../core/api/services/order.api.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-payment-page',
@@ -40,7 +41,8 @@ export class PaymentPageComponent {
   constructor(
     private eventService: EventApiService,
     private route: ActivatedRoute,
-    private orderService: OrderApiService
+    private orderService: OrderApiService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -83,7 +85,7 @@ export class PaymentPageComponent {
   }
 
   createOrder() {
-    const customerId = 1;
+    const customerId = this.authService.getUser()?.id;
     const tickets = this.selectedTickets.map((ticket) => ({
       eventId: +this.eventId!,
       categoryId: ticket.id,
