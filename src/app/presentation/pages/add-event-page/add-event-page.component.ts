@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 
-import { EventApiService } from '../../../domain/api/services/event.api.service';
+import { EventApiService } from '../../../core/api/services/event.api.service';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';

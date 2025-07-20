@@ -13,10 +13,10 @@ import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { AuthApiService } from '../../../domain/api/services/auth.api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { InputMaskModule } from 'primeng/inputmask';
-import { DocumentValidators } from '../../../domain/validators/Document.validator';
+import { AuthApiService } from '../../../../core/api/services/auth.api.service';
+import { DocumentValidators } from '../../../../core/validators/Document.validator';
 
 @Component({
   selector: 'app-register-page',

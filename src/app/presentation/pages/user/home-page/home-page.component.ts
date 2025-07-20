@@ -4,12 +4,12 @@ import { CarouselModule } from 'primeng/carousel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
-import { EventApiService } from '../../../domain/api/services/event.api.service';
 import { HttpParams } from '@angular/common/http';
-import { Event } from '../../../domain/model/event.model';
 import { DatePipe } from '@angular/common';
-import { environment } from '../../../../environments/environment';
 import { Button } from 'primeng/button';
+import { environment } from '../../../../../environments/environment';
+import { EventApiService } from '../../../../core/api/services/event.api.service';
+import { Event } from '../../../../core/model/event.model';
 
 @Component({
   selector: 'app-home-page',

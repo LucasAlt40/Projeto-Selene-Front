@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { HttpParams } from '@angular/common/http';
-import { EventApiService } from '../../../../domain/api/services/event.api.service';
-import { Event } from '../../../../domain/model/event.model';
+import { EventApiService } from '../../../../core/api/services/event.api.service';
+import { Event } from '../../../../core/model/event.model';
 
 @Component({
   selector: 'app-event-page',
