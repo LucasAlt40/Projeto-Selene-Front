@@ -1,0 +1,21 @@
+<div class="p-4">
+  <h1 class="text-xl font-bold mb-4">Página de Busca</h1>
+
+  <input
+    type="text"
+    class="border rounded p-2 w-full mb-4"
+    placeholder="Buscar eventos..."
+    [(ngModel)]="searchTerm"
+    (input)="onSearch()"
+  />
+
+  @if (searchResults.length > 0) {
+    <ul>
+      @for (result of searchResults; track result.id) {
+        <li class="mb-2">{{ result.title }}</li>
+      }
+    </ul>
+  } @else {
+    <p>Nenhum resultado encontrado.</p>
+  }
+</div>
