@@ -14,6 +14,7 @@ import { EventDetailPageComponent } from './presentation/pages/user/event-detail
 import { LayoutUserComponent } from './presentation/components/user/layout/layout-user.component';
 import { PaymentPageComponent } from './presentation/pages/user/payment-page/payment-page.component';
 import { SearchPageComponent } from './presentation/pages/user/search-page/search-page.component';
+import { AddEventCategoryPageComponent } from './presentation/pages/add-event-category-page/add-event-category-page.component';
 
 export const routes: Routes = [
   {
@@ -61,11 +62,9 @@ export const routes: Routes = [
       { path: '', component: EventPageComponent },
       { path: 'eventos', component: EventPageComponent },
       { path: 'eventos/:id', component: EventDetailsPageComponent },
-      {
-        path: 'criar-evento',
-        component: AddEventPageComponent,
-      },
+      {path: 'eventos/criar',component: AddEventPageComponent,},
       { path: 'categorias-evento', component: EventCategoryPageComponent },
+      { path: 'categorias-evento/criar', component: AddEventCategoryPageComponent },
       { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     ],
   },
