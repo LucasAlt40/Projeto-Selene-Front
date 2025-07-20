@@ -5,14 +5,15 @@ import { authGuard } from './core/guards/auth.guard';
 import { loginGuard } from './core/guards/login.guard';
 import { LayoutComponent } from './presentation/components/layout/layout.component';
 import { EventPageComponent } from './presentation/pages/admin/event-page/event-page.component';
-import { TicketCategoryPageComponent } from './presentation/pages/admin/ticket-category-page/ticket-category-page.component';
 import { EventCategoryPageComponent } from './presentation/pages/admin/event-category-page/event-category-page.component';
+import { EventDetailsPageComponent } from './presentation/pages/admin/event-details-page/event-details-page.component';
 import { AddEventPageComponent } from './presentation/pages/add-event-page/add-event-page.component';
 import { RegisterPageComponent } from './presentation/pages/user/register-page/register-page.component';
 import { HomePageComponent } from './presentation/pages/user/home-page/home-page.component';
 import { EventDetailPageComponent } from './presentation/pages/user/event-detail-page/event-detail-page.component';
 import { LayoutUserComponent } from './presentation/components/user/layout/layout-user.component';
 import { PaymentPageComponent } from './presentation/pages/user/payment-page/payment-page.component';
+import { SearchPageComponent } from './presentation/pages/user/search-page/search-page.component';
 
 export const routes: Routes = [
   {
@@ -35,11 +36,15 @@ export const routes: Routes = [
       },
       {
         path: 'evento/:id',
-        component: EventDetailPageComponent
+        component: EventDetailPageComponent,
       },
       {
         path: 'evento-ingresso/:id',
-        component: PaymentPageComponent
+        component: PaymentPageComponent,
+      },
+      {
+        path: 'buscar',
+        component: SearchPageComponent
       },
       // Isso aqui é só para teste, depois remover
       {
@@ -53,20 +58,14 @@ export const routes: Routes = [
     path: 'admin',
     component: LayoutComponent,
     children: [
-      {
-        path: '',
-        component: EventPageComponent,
-      },
-      {
-        path: 'eventos',
-        component: EventPageComponent,
-      },
+      { path: '', component: EventPageComponent },
+      { path: 'eventos', component: EventPageComponent },
+      { path: 'eventos/:id', component: EventDetailsPageComponent },
       {
         path: 'criar-evento',
         component: AddEventPageComponent,
       },
       { path: 'categorias-evento', component: EventCategoryPageComponent },
-      { path: 'categorias-ingresso', component: TicketCategoryPageComponent },
       { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     ],
   },

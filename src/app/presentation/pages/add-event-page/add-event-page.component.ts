@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { EventApiService } from '../../../core/api/services/event.api.service';
+
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
@@ -20,7 +21,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     CalendarModule,
     ButtonModule,
     FileUploadModule,
-    DropdownModule, 
+    DropdownModule,
     DatePickerModule,
   ],
   templateUrl: './add-event-page.component.html',
@@ -36,7 +37,7 @@ export class AddEventPageComponent implements OnInit {
       city: '',
       state: '',
       zipCode: '',
-      number: null as number | null,
+      number: 0,
     },
   };
 
@@ -55,6 +56,7 @@ export class AddEventPageComponent implements OnInit {
   ngOnInit(): void {
     this.eventService.getCategories().subscribe({
       next: (res) => {
+        console.log('Categorias carregadas:', res);
         this.categories = res;
       },
       error: (err) => {
@@ -93,7 +95,6 @@ export class AddEventPageComponent implements OnInit {
       !address.state ||
       !address.zipCode ||
       !address.number ||
-
       !this.selectedCategoryId
     ) {
       alert('Preencha todos os campos obrigatórios.');
@@ -106,10 +107,24 @@ export class AddEventPageComponent implements OnInit {
     }
 
     const payload = {
-  ...this.event,
-  date: this.datePipe.transform(this.event.date, "yyyy-MM-dd'T'HH:mm:ss")!,
-  categoryId: this.selectedCategoryId,
-};
-  }
+      ...this.event,
+      date: this.datePipe.transform(this.event.date, "yyyy-MM-dd'T'HH:mm:ss")!,
+      categoryId: this.selectedCategoryId!,
+      address: {
+        ...this.event.address,
+        number: this.event.address.number!,
+      },
+    };
 
+    this.eventService.createEvent(payload, this.selectedImageFile).subscribe({
+      next: () => {
+        alert('Evento criado com sucesso!');
+        this.router.navigate(['/event']);
+      },
+      error: (err) => {
+        console.error('Erro ao criar evento:', err);
+        alert('Erro ao criar evento');
+      },
+    });
+  }
 }
