@@ -1,0 +1,49 @@
+<p-stepper [value]="1" class="basis-[50rem]">
+  <p-step-list>
+    <p-step [value]="1">Seleção de Ingressos</p-step>
+    <p-step [value]="2">Confirmação</p-step>
+  </p-step-list>
+  <p-step-panels>
+    <p-step-panel [value]="1">
+      <ng-template #content let-activateCallback="activateCallback">
+        <div class="flex flex-col gap-8">
+          @for (ticket of tickets; track $index) {
+          <div class="flex justify-between items-center p-4 border rounded">
+            <p class="w-[200px]">{{ ticket.description }}</p>
+            <p class="w-[100px] font-bold">
+              {{ ticket.price | currency : "BRL" : "symbol" }}
+            </p>
+            <p-inputnumber
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              inputId="vertical"
+              [inputStyle]="{ width: '3rem' }"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+          </div>
+          }
+        </div>
+
+        <div class="flex justify-end mt-4">
+          <p-button label="Próximo" (click)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right"/>
+        </div>
+      </ng-template>
+    </p-step-panel>
+
+    <p-step-panel [value]="2">
+      <ng-template #content let-activateCallback="activateCallback">
+        <p>Conteúdo do passo 1</p>
+        <div class="flex justify-between mt-4">
+          <p-button label="Voltar" (click)="activateCallback(1)" class="mr-2" />
+        </div>
+      </ng-template>
+    </p-step-panel>
+  </p-step-panels>
+</p-stepper>

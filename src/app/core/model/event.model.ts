@@ -23,3 +23,11 @@ export enum EventStatusEnum {
   ACTIVE = 'ACTIVE',
   INACTIVE = 'INACTIVE',
 }
+
+export type EventTicket = {
+  id: number;
+  price: number;
+  description: string;
+  quantity: number;
+  quantityAvailable: number;
+}
