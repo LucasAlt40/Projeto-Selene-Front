@@ -1,8 +1,5 @@
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
+::ng-deep input {
+  width: 100%;
 }
 
-::ng-deep input {
-    width: 100%;
-}
+

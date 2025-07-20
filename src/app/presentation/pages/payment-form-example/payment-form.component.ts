@@ -12,8 +12,8 @@ import { InputNumber } from 'primeng/inputnumber';
 import { Select } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
-import { RequestCheckout } from '../../../domain/model/payment.model';
-import { PaymentApiService } from '../../../domain/api/services/payment.api.service';
+import { RequestCheckout } from '../../../core/model/payment.model';
+import { PaymentApiService } from '../../../core/api/services/payment.api.service';
 
 @Component({
   selector: 'app-payment-form',

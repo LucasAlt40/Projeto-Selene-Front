@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthApiService } from '../../../domain/api/services/auth.api.service';
+import { AuthApiService } from '../../../core/api/services/auth.api.service';
 import {
   FormBuilder,
   FormGroup,

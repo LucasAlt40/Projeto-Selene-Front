@@ -10,10 +10,12 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { authInterceptor } from './domain/api/interceptors/auth.interceptor';
+import { authInterceptor } from './core/api/interceptors/auth.interceptor';
+import { DatePipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    DatePipe,
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
