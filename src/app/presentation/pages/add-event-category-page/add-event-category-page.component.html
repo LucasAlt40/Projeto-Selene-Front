@@ -1,0 +1,23 @@
+<div class="max-w-xl mx-auto mt-10 p-6 border rounded-xl shadow bg-white">
+  <h2 class="text-xl font-bold mb-4">Criar nova categoria de evento</h2>
+
+  <div class="mb-4">
+    <label for="name" class="block font-semibold mb-2">Nome da categoria</label>
+    <input
+      id="name"
+      type="text"
+      pInputText
+      [(ngModel)]="categoryName"
+      class="w-full"
+      placeholder="Ex: Show, Teatro, Festa"
+    />
+  </div>
+
+  <button
+    pButton
+    type="button"
+    label="Criar categoria"
+    class="w-full"
+    (click)="onSubmit()"
+  ></button>
+</div>

@@ -26,6 +26,11 @@ type Category = {
   name: string;
 };
 
+
+type CategoryRequestDto = {
+  name: string;
+};
+
 @Injectable({
   providedIn: 'root',
 })
