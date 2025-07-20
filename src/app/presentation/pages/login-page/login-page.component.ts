@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { CookieService } from 'ngx-cookie-service';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -22,7 +23,7 @@ import { ButtonModule } from 'primeng/button';
     PasswordModule,
     InputTextModule,
     ButtonModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
@@ -30,12 +31,7 @@ import { ButtonModule } from 'primeng/button';
 export class LoginPageComponent {
   loginForm: FormGroup;
 
-  constructor(
-    private authService: AuthApiService,
-    private fb: FormBuilder,
-    private router: Router,
-    private cookieService: CookieService
-  ) {
+  constructor(private authService: AuthService, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
@@ -45,19 +41,8 @@ export class LoginPageComponent {
   onSubmit() {
     const { email, password } = this.loginForm.value;
 
-    this.authService.login(email, password).subscribe({
-      next: (res) => {
-        const token = res.token;
-        const expiresIn = res.expiresIn;
-
-        if (token && expiresIn) {
-          const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
-          this.cookieService.set('auth_token', token, expireDate);
-        }
-      },
-      complete: () => {
-        this.router.navigate(['/event']);
-      },
-    });
+    if (this.loginForm.valid) {
+      this.authService.authenticateUser(email, password);
+    }
   }
 }

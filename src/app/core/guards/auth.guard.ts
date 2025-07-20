@@ -1,15 +1,13 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { isTokenExpired } from '../utils';
+import { AuthService } from '../services/auth.service';
 
 export const authGuard: CanActivateFn = (_, state): boolean | UrlTree => {
-  const cookieService = inject(CookieService);
   const router = inject(Router);
+  const authService = inject(AuthService);
 
-  const token = cookieService.get('auth_token');
 
-  if (token && !isTokenExpired(token)) {
+  if (authService.isAuthenticated()) {
     return true;
   }
 

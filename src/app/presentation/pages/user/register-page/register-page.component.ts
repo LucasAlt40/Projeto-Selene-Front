@@ -17,6 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { InputMaskModule } from 'primeng/inputmask';
 import { AuthApiService } from '../../../../core/api/services/auth.api.service';
 import { DocumentValidators } from '../../../../core/validators/Document.validator';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-register-page',
@@ -36,7 +37,8 @@ export class RegisterPageComponent {
   registerForm: FormGroup;
 
   constructor(
-    private authService: AuthApiService,
+    private authApiService: AuthApiService,
+    private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
     private cookieService: CookieService
@@ -71,29 +73,12 @@ export class RegisterPageComponent {
         formValues.phone = formValues.phone.replace(/\D/g, '');
       }
 
-      this.authService.register(formValues).subscribe({
+      this.authApiService.register(formValues).subscribe({
         next: () => {
-          this.authService
-            .login(formValues.email, formValues.password)
-            .subscribe({
-              next: (res) => {
-                const token = res.token;
-                const expiresIn = res.expiresIn;
-
-                if (token && expiresIn) {
-                  const expireDate = new Date(
-                    new Date().getTime() + expiresIn * 1000
-                  );
-                  this.cookieService.set('auth_token', token, expireDate);
-                }
-              },
-              complete: () => {
-                this.router.navigate(['/eventos']);
-              },
-            });
-        },
-        error: (err) => {
-          console.error('Registration failed', err);
+          this.authService.authenticateUser(
+            formValues.email,
+            formValues.password
+          );
         },
       });
     } else {
