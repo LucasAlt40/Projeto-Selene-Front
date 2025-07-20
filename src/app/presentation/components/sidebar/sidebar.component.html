@@ -10,16 +10,6 @@
     <i class="pi" [ngClass]="isCollapsed ? 'pi-angle-right' : 'pi-angle-left'"></i>
   </div>
 
-  <div class="flex items-center justify-center h-20">
-   <!--  @if (!isCollapsed) {
-      <img src="assets/logo.png" alt="Logo" class="max-w-[120px]" />
-    } @else {
-      <i class="pi pi-bolt text-white text-2xl"></i>
-    } -->
-
-    <i class="pi pi-bolt text-white text-2xl"></i>
-  </div>
-
   <ul class="list-none p-0 m-0">
     @for (item of items; track $index) {
       <li
