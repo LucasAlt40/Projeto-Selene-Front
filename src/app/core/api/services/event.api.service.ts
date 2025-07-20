@@ -42,6 +42,11 @@ export class EventApiService {
     );
   }
 
+
+  public getAllEventCategories(): Observable<{content: any; pageable: any}> {
+    return this.http.get<{content: any; pageable: any}>(`${this.apiUrl}/event-category/find`);
+  }
+
   public getEvents(): Observable<EventRequestDto[]> {
     return this.http.get<EventRequestDto[]>(`${this.apiUrl}/find`);
   }
@@ -61,6 +66,11 @@ export class EventApiService {
     )
     .pipe(map(res => res.content)); 
 }
+
+  public getEventById(id: number): Observable<Event> {
+    return this.http.get<Event>(`${this.apiUrl}/${id}/find`);
+  }
+
 
   private mappingEventRequest(event: EventRequestDto, file: File){
     const formData = new FormData()
