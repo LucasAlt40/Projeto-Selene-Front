@@ -6,33 +6,97 @@ import { ButtonModule } from 'primeng/button';
 import { EventTicket } from '../../../../core/model/event.model';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CurrencyPipe } from '@angular/common';
+import { TagModule } from 'primeng/tag';
+import { FormsModule } from '@angular/forms';
+import { DividerModule } from 'primeng/divider';
+import { OrderApiService } from '../../../../core/api/services/order.api.service';
 
 @Component({
   selector: 'app-payment-page',
-  imports: [StepperModule, ButtonModule, InputNumberModule, CurrencyPipe],
+  imports: [
+    StepperModule,
+    ButtonModule,
+    InputNumberModule,
+    CurrencyPipe,
+    TagModule,
+    DividerModule,
+    FormsModule,
+  ],
   templateUrl: './payment-page.component.html',
   styleUrl: './payment-page.component.css',
 })
 export class PaymentPageComponent {
   tickets: EventTicket[] = [];
+  ticketQuantities: { [ticketId: number]: number } = {};
+
+  selectedTickets: {
+    id: number;
+    quantity: number;
+    price: number;
+    description: string;
+  }[] = [];
+  eventId: string | null = '';
 
   constructor(
     private eventService: EventApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private orderService: OrderApiService
   ) {}
 
   ngOnInit() {
-    const eventId = this.route.snapshot.paramMap.get('id');
-    if (eventId) {
+    this.eventId = this.route.snapshot.paramMap.get('id');
+    if (this.eventId) {
       this.eventService
-        .getTicketTypesByEventId(+eventId)
+        .getTicketTypesByEventId(+this.eventId)
         .subscribe((tickets) => {
-          // o price dos tickets está vindo como centavos
           this.tickets = tickets.map((ticket) => ({
             ...ticket,
             price: ticket.price / 100,
           }));
         });
     }
+  }
+
+  updateSelectedTickets(ticket: any, quantity: number) {
+    const existing = this.selectedTickets.find((t) => t.id === ticket.id);
+    if (quantity > 0) {
+      if (existing) {
+        existing.quantity = quantity;
+      } else {
+        this.selectedTickets.push({
+          ...ticket,
+          quantity,
+        });
+      }
+    } else {
+      this.selectedTickets = this.selectedTickets.filter(
+        (t) => t.id !== ticket.id
+      );
+    }
+  }
+
+  get totalPrice() {
+    return this.selectedTickets.reduce(
+      (sum, t) => sum + t.quantity * t.price,
+      0
+    );
+  }
+
+  createOrder() {
+    const customerId = 1;
+    const tickets = this.selectedTickets.map((ticket) => ({
+      eventId: +this.eventId!,
+      categoryId: ticket.id,
+      quantity: ticket.quantity,
+    }));
+    const order = {
+      tickets,
+      customerId,
+    };
+    this.orderService.createOrder(order).subscribe({
+      next: (response) => {
+        window.open(response.checkout.links[0].href, '_blank');
+      },
+    });
   }
 }
