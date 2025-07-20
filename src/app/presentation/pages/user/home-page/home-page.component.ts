@@ -1,9 +1,6 @@
 import { Component, OnInit, signal, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CarouselModule } from 'primeng/carousel';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputText } from 'primeng/inputtext';
 import { HttpParams } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { Button } from 'primeng/button';
@@ -13,15 +10,7 @@ import { Event } from '../../../../core/model/event.model';
 
 @Component({
   selector: 'app-home-page',
-  imports: [
-    CarouselModule,
-    RouterModule,
-    IconFieldModule,
-    InputIconModule,
-    InputText,
-    DatePipe,
-    Button,
-  ],
+  imports: [CarouselModule, RouterModule, DatePipe, Button],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })

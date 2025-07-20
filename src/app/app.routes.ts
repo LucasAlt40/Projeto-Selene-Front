@@ -11,6 +11,7 @@ import { AddEventPageComponent } from './presentation/pages/add-event-page/add-e
 import { RegisterPageComponent } from './presentation/pages/user/register-page/register-page.component';
 import { HomePageComponent } from './presentation/pages/user/home-page/home-page.component';
 import { EventDetailPageComponent } from './presentation/pages/user/event-detail-page/event-detail-page.component';
+import { LayoutUserComponent } from './presentation/components/user/layout/layout-user.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,7 @@ export const routes: Routes = [
   },
   {
     path: '',
+    component: LayoutUserComponent,
     children: [
       {
         path: '',
