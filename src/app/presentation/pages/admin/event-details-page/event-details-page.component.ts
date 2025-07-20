@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventApiService } from '../../../../domain/api/services/event.api.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DatePipe } from '@angular/common';
+import { EventApiService } from '../../../../core/api/services/event.api.service';
 
 @Component({
   selector: 'app-event-details-page',
@@ -22,10 +22,10 @@ export class EventDetailsPageComponent {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')!;
-    this.getEvent();
+    //this.getEvent();
   }
 
-  getEvent(): void {
+  /* getEvent(): void {
     this.loading = true;
     this.eventService.findById(this.id).subscribe({
       next: (res) => {
@@ -37,5 +37,5 @@ export class EventDetailsPageComponent {
         this.loading = false;
       },
     });
-  }
+  } */
 }
