@@ -46,6 +46,8 @@ export class AddEventPageComponent {
   selectedImageFile: File | null = null;
   previewUrl: string | null = null;
 
+  loadingSubmit = false;
+
   constructor(
     private eventService: EventApiService,
     private datePipe: DatePipe,
@@ -84,6 +86,8 @@ export class AddEventPageComponent {
   }
 
   onSubmit() {
+    if (this.loadingSubmit) return;
+
     const { title, description, address } = this.event;
 
     if (
@@ -105,6 +109,8 @@ export class AddEventPageComponent {
       return;
     }
 
+    this.loadingSubmit = true;
+
     const payload = {
       ...this.event,
       date: this.datePipe.transform(this.event.date, "yyyy-MM-dd'T'HH:mm:ss")!,
@@ -119,10 +125,12 @@ export class AddEventPageComponent {
       next: (res) => {
         alert('Evento criado com sucesso!');
         this.router.navigate(['/eventos/', res.id]);
+        this.loadingSubmit = false;
       },
       error: (err) => {
         console.error('Erro ao criar evento:', err);
         alert('Erro ao criar evento');
+        this.loadingSubmit = false;
       },
     });
   }
