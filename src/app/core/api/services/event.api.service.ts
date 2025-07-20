@@ -51,6 +51,10 @@ export class EventApiService {
     return this.http.put<void>(`${this.apiUrl}/update/${idEvent}`, event);
   }
 
+  public getEventById(id: number): Observable<Event> {
+    return this.http.get<Event>(`${this.apiUrl}/${id}/find`);
+  }
+
   private mappingEventRequest(event: EventRequestDto, file: File){
     const formData = new FormData()
 

@@ -6,6 +6,8 @@ export type Event = {
   address: Address;
   previewImageUrl: string;
   status: EventStatusEnum;
+  eventCategoryName: string;
+  eventCategoryId: number;
 };
 
 export type Address = {
