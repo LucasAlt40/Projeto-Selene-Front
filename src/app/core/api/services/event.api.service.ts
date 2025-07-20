@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Event } from '../../model/event.model';
+import { Event, EventTicket } from '../../model/event.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -71,6 +71,11 @@ export class EventApiService {
     return this.http.get<Event>(`${this.apiUrl}/${id}/find`);
   }
 
+  public getTicketTypesByEventId(id: number) {
+    return this.http.get<EventTicket[]>(
+      `${this.apiUrl}/${id}/ticket-category/find`
+    );
+  }
 
   private mappingEventRequest(event: EventRequestDto, file: File){
     const formData = new FormData()
