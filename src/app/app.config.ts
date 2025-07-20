@@ -23,6 +23,9 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         preset: Material,
+        options: {
+          darkModeSelector: false || 'none',
+        },
       },
     }),
     provideZoneChangeDetection({ eventCoalescing: true }),

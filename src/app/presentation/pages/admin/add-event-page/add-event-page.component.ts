@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
-import { EventApiService } from '../../../core/api/services/event.api.service';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
@@ -10,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
+import { EventApiService } from '../../../../core/api/services/event.api.service';
 
 @Component({
   selector: 'app-add-event-page',
@@ -25,9 +25,8 @@ import { DatePickerModule } from 'primeng/datepicker';
     DatePickerModule,
   ],
   templateUrl: './add-event-page.component.html',
-  styleUrls: ['./add-event-page.component.css'],
 })
-export class AddEventPageComponent implements OnInit {
+export class AddEventPageComponent {
   event = {
     title: '',
     description: '',
@@ -47,10 +46,12 @@ export class AddEventPageComponent implements OnInit {
   selectedImageFile: File | null = null;
   previewUrl: string | null = null;
 
+  loadingSubmit = false;
+
   constructor(
     private eventService: EventApiService,
-    private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +86,8 @@ export class AddEventPageComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.loadingSubmit) return;
+
     const { title, description, address } = this.event;
 
     if (
@@ -106,6 +109,8 @@ export class AddEventPageComponent implements OnInit {
       return;
     }
 
+    this.loadingSubmit = true;
+
     const payload = {
       ...this.event,
       date: this.datePipe.transform(this.event.date, "yyyy-MM-dd'T'HH:mm:ss")!,
@@ -117,13 +122,15 @@ export class AddEventPageComponent implements OnInit {
     };
 
     this.eventService.createEvent(payload, this.selectedImageFile).subscribe({
-      next: () => {
+      next: (res) => {
         alert('Evento criado com sucesso!');
-        this.router.navigate(['/event']);
+        this.router.navigate(['/eventos/', res.id]);
+        this.loadingSubmit = false;
       },
       error: (err) => {
         console.error('Erro ao criar evento:', err);
         alert('Erro ao criar evento');
+        this.loadingSubmit = false;
       },
     });
   }
