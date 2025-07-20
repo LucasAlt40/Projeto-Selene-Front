@@ -17,4 +17,8 @@ export class EventApiService {
       { params }
     );
   }
+
+  findById(id: string) {
+    return this.http.get<{ event: Event }>(`${this.apiUrl}/${id}`);
+  }
 }
