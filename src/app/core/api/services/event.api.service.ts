@@ -34,6 +34,11 @@ export class EventApiService {
     );
   }
 
+
+  public getAllEventCategories(): Observable<{content: any; pageable: any}> {
+    return this.http.get<{content: any; pageable: any}>(`${this.apiUrl}/event-category/find`);
+  }
+
   public getEvents(): Observable<EventRequestDto[]> {
     return this.http.get<EventRequestDto[]>(`${this.apiUrl}/find`);
   }
