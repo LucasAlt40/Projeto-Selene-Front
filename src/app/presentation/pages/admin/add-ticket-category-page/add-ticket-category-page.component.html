@@ -1,0 +1,70 @@
+<main class="max-w-xl mx-auto mt-10 p-6 border-gray-300 border-2 rounded-2xl shadow">
+  <form (ngSubmit)="onSubmit()" #form="ngForm" class="space-y-6">
+    <h2 class="text-2xl font-bold mb-4">Criar Categoria de Ingresso</h2>
+
+    <div class="field">
+      <label for="event" class="block font-semibold mb-2">Evento</label>
+      <p-dropdown
+        [options]="events"
+        [(ngModel)]="selectedEventId"
+        name="event"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="Selecione um evento"
+        [showClear]="true"
+        [filter]="true"
+        required
+        ></p-dropdown>
+    </div>
+
+    <div class="field">
+      <label for="description" class="block font-semibold mb-2">Descrição</label>
+      <input
+        id="description"
+        type="text"
+        pInputText
+        [(ngModel)]="ticketCategoryDescription"
+        name="description"
+        required
+        class="w-full"
+      />
+    </div>
+
+    <div class="field">
+      <label for="quantity" class="block font-semibold mb-2">Quantidade</label>
+      <p-inputNumber
+        inputId="quantity"
+        [(ngModel)]="ticketCategoryQuantity"
+        name="quantity"
+        [min]="1"
+        required
+        class="w-full"
+      />
+    </div>
+
+    <div class="field">
+      <label for="price" class="block font-semibold mb-2">Preço (R$)</label>
+      <p-inputNumber
+        inputId="price"
+        [(ngModel)]="ticketCategoryPrice"
+        name="price"
+        mode="currency"
+        currency="BRL"
+        locale="pt-BR"
+        [min]="0"
+        required
+        class="w-full"
+      />
+    </div>
+
+    <div class="flex justify-end mt-4">
+      <button
+        pButton
+        type="submit"
+        label="Salvar"
+        icon="pi pi-check"
+        class="p-button-success"
+      ></button>
+    </div>
+  </form>
+</main>

@@ -26,6 +26,12 @@ type Category = {
   name: string;
 };
 
+type TicketCategoryRequestDto = {
+  ticketCategoryDescription: string;
+  ticketCategoryQuantity: number;
+  ticketCategoryPrice: number;
+  eventId: number;
+};
 
 type CategoryRequestDto = {
   name: string;
@@ -52,8 +58,8 @@ export class EventApiService {
     );
   }
 
-  public getEvents(): Observable<EventRequestDto[]> {
-    return this.http.get<EventRequestDto[]>(`${this.apiUrl}/find`);
+  public getEvents(): Observable<{content: EventRequestDto[]}> {
+    return this.http.get<{content: EventRequestDto[]}>(`${this.apiUrl}/find`);
   }
 
   public createEvent(event: any, file: File): Observable<any> {
@@ -92,6 +98,17 @@ export class EventApiService {
     return this.http.post<void>(`${this.apiUrl}/event-category/add`, category);
   }
   
+  public createTicketCategory(payload: TicketCategoryRequestDto): Observable<void> {
+    return this.http.post<void>(
+      `${this.apiUrl}/${payload.eventId}/ticket-category/add`,
+      {
+        description: payload.ticketCategoryDescription,
+        quantity: payload.ticketCategoryQuantity,
+        price: payload.ticketCategoryPrice,
+      }
+    );
+  }
+
   private mappingEventRequest(event: EventRequestDto, file: File) {
     const formData = new FormData();
 
