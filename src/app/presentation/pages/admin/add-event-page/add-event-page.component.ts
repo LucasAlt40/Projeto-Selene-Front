@@ -126,7 +126,7 @@ export class AddEventPageComponent {
     this.eventService.createEvent(payload, this.selectedImageFile).subscribe({
       next: (res) => {
         alert('Evento criado com sucesso!');
-        this.router.navigate(['/eventos/', res.id]);
+        this.router.navigate(['/admin/eventos/', res.id]);
         this.loadingSubmit = false;
       },
       error: (err) => {
