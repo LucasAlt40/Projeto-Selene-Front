@@ -5,22 +5,22 @@ import { CookieService } from 'ngx-cookie-service';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../services/auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const cookieService = inject(CookieService);
+  const authService = inject(AuthService);
   const router = inject(Router);
   const messageService = inject(MessageService);
-
+  const cookieService = inject(CookieService);
   const token = cookieService.get('auth_token');
-  const excludedEndpoints = [
-    '/auth'
-  ];
+
+  const excludedEndpoints = ['/auth'];
   const isApiRequest = req.url.startsWith(environment.apiUrl);
   const isExcludedEndpoint = excludedEndpoints.some((endpoint) =>
     req.url.includes(endpoint)
   );
 
-  if (isApiRequest && !isExcludedEndpoint && !token) {
+  if (!authService.isAuthenticated()) {
     router.navigate(['/home']);
     messageService.add({
       severity: 'info',
