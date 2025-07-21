@@ -1,1 +1,39 @@
-<p>event-category-page works!</p>
+<main class="container mx-auto py-6">
+  <div class="flex flex-col gap-4">
+    <div class="flex justify-end">
+      <p-button
+        [routerLink]="['/admin/categorias-evento/criar']"
+        icon="pi pi-plus"
+        label="Cadastrar categoria"
+        styleClass="p-button-primary"
+      />
+    </div>
+
+    <p-table
+      [value]="categories"
+      [paginator]="true"
+      [rows]="10"
+      [totalRecords]="totalRecords"
+      [lazy]="true"
+      (onLazyLoad)="loadCategories($event)"
+      (onPage)="loadCategories($event)"
+      [loading]="loading"
+      showGridlines
+      stripedRows
+      [tableStyle]="{ 'min-width': '30rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Id</th>
+          <th>Nome</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-category>
+        <tr>
+          <td>{{ category.id }}</td>
+          <td>{{ category.name }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</main>
