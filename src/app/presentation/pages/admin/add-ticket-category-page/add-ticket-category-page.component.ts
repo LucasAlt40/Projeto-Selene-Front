@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
+import { HttpParams } from '@angular/common/http';
 
 import { ToastModule } from 'primeng/toast';            
 import { MessageService } from 'primeng/api';          
@@ -35,14 +36,20 @@ export class AddTicketCategoryPageComponent {
   selectedEventId: number | null = null;
   events: { id: number; title: string }[] = [];
 
+<<<<<<< HEAD
   constructor(
     private eventService: EventApiService,
     private router: Router,
     private messageService: MessageService     
   ) {}
+=======
+  constructor(private eventService: EventApiService, private router: Router) {}
+>>>>>>> f1d0c462844253dd5be6b02f8acf529b48f45bae
 
   ngOnInit() {
-    this.eventService.getEvents().subscribe({
+    const params = new HttpParams().set('pageSize', 200);
+
+    this.eventService.findAll(params).subscribe({
       next: (res) => {
         this.events = res.content.map((event: any) => ({
           id: event.id,
@@ -81,7 +88,7 @@ export class AddTicketCategoryPageComponent {
         eventId: this.selectedEventId,
         ticketCategoryDescription: this.ticketCategoryDescription,
         ticketCategoryQuantity: this.ticketCategoryQuantity,
-        ticketCategoryPrice: this.ticketCategoryPrice,
+        ticketCategoryPrice: this.ticketCategoryPrice * 100,
       })
       .subscribe({
         next: () => {

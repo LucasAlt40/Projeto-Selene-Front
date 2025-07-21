@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { StepperModule } from 'primeng/stepper';
 import { EventApiService } from '../../../../core/api/services/event.api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -29,6 +29,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 export class PaymentPageComponent {
   tickets: EventTicket[] = [];
   ticketQuantities: { [ticketId: number]: number } = {};
+  loading = signal(false);
 
   selectedTickets: {
     id: number;
@@ -95,9 +96,16 @@ export class PaymentPageComponent {
       tickets,
       customerId,
     };
+    this.loading.set(true);
     this.orderService.createOrder(order).subscribe({
       next: (response) => {
         window.open(response.checkout.links[0].href, '_blank');
+      },
+      error: () => {
+        this.loading.set(false);
+      },
+      complete: () => {
+        this.loading.set(false);
       },
     });
   }
