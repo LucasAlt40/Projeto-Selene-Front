@@ -19,13 +19,13 @@ export class AuthService {
         const token = res.token;
         const expiresIn = res.expiresIn;
         const user = res.user;
+        const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
 
         if (user) {
-          this.cookieService.set('auth_user', JSON.stringify(user), expiresIn);
+          this.cookieService.set('auth_user', JSON.stringify(user), expireDate);
         }
 
         if (token && expiresIn) {
-          const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
           this.cookieService.set('auth_token', token, expireDate);
         }
       },

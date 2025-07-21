@@ -30,6 +30,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutUserComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -58,6 +59,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: LayoutComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', component: EventPageComponent },
       { path: 'eventos', component: EventPageComponent },
