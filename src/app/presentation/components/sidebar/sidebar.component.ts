@@ -24,6 +24,11 @@ export class SidebarComponent {
       routerLink: ['/admin/categorias-evento'],
     },
     {
+      label: 'Categoria de Ingresso',
+      icon: 'pi pi-ticket',
+      routerLink: ['/admin/categorias-ingresso/criar'],
+    },
+    {
       label: 'Sair',
       icon: 'pi pi-sign-out',
       routerLink: ['/login'],
