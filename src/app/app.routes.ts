@@ -15,6 +15,7 @@ import { PaymentPageComponent } from './presentation/pages/user/payment-page/pay
 import { AddEventPageComponent } from './presentation/pages/admin/add-event-page/add-event-page.component';
 import { SearchPageComponent } from './presentation/pages/user/search-page/search-page.component';
 import { AddEventCategoryPageComponent } from './presentation/pages/admin/add-event-category-page/add-event-category-page.component';
+import { AddTicketCategoryPageComponent } from './presentation/pages/admin/add-ticket-category-page/add-ticket-category-page.component';
 
 export const routes: Routes = [
   {
@@ -66,10 +67,8 @@ export const routes: Routes = [
       { path: 'eventos/:id', component: EventDetailsPageComponent },
       { path: 'criar-evento', component: AddEventPageComponent },
       { path: 'categorias-evento', component: EventCategoryPageComponent },
-      {
-        path: 'categorias-evento/criar',
-        component: AddEventCategoryPageComponent,
-      },
+      { path: 'categorias-evento/criar', component: AddEventCategoryPageComponent,},
+      { path: 'categorias-ingresso/criar', component: AddTicketCategoryPageComponent },
       { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     ],
   },
