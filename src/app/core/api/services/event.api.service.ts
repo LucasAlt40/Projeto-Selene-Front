@@ -19,6 +19,7 @@ type EventRequestDto = {
   date: string;
   address: AddressRequestDto;
   categoryId: number;
+  eventCategoryId: number;
 };
 
 type Category = {
@@ -58,8 +59,8 @@ export class EventApiService {
     );
   }
 
-  public getEvents(): Observable<{content: EventRequestDto[]}> {
-    return this.http.get<{content: EventRequestDto[]}>(`${this.apiUrl}/find`);
+  public getEvents(): Observable<{ content: EventRequestDto[] }> {
+    return this.http.get<{ content: EventRequestDto[] }>(`${this.apiUrl}/find`);
   }
 
   public createEvent(event: any, file: File): Observable<any> {
@@ -71,9 +72,13 @@ export class EventApiService {
 
   public updateEvent(
     idEvent: number,
-    event: EventRequestDto
-  ): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/update/${idEvent}`, event);
+    event: EventRequestDto,
+    file: File
+  ): Observable<any> {
+    return this.http.put<any>(
+      `${this.apiUrl}/update/${idEvent}`,
+      this.mappingEventRequest(event, file)
+    );
   }
 
   getCategories(): Observable<{ id: number; name: string }[]> {
@@ -97,8 +102,10 @@ export class EventApiService {
   public createEventCategory(category: CategoryRequestDto): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/event-category/add`, category);
   }
-  
-  public createTicketCategory(payload: TicketCategoryRequestDto): Observable<void> {
+
+  public createTicketCategory(
+    payload: TicketCategoryRequestDto
+  ): Observable<void> {
     return this.http.post<void>(
       `${this.apiUrl}/${payload.eventId}/ticket-category/add`,
       {

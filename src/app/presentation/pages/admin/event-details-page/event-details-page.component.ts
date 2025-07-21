@@ -140,17 +140,19 @@ export class EventDetailsPageComponent {
       },
     };
 
-    this.eventService.createEvent(payload, this.selectedImageFile).subscribe({
-      next: (res) => {
-        alert('Evento criado com sucesso!');
-        this.router.navigate(['/eventos/', res.id]);
-        this.loadingSubmit = false;
-      },
-      error: (err) => {
-        console.error('Erro ao criar evento:', err);
-        alert('Erro ao criar evento');
-        this.loadingSubmit = false;
-      },
-    });
+    this.eventService
+      .updateEvent(this.id, payload, this.selectedImageFile)
+      .subscribe({
+        next: () => {
+          alert('Evento criado com sucesso!');
+          this.router.navigate(['/eventos']);
+          this.loadingSubmit = false;
+        },
+        error: (err) => {
+          console.error('Erro ao criar evento:', err);
+          alert('Erro ao criar evento');
+          this.loadingSubmit = false;
+        },
+      });
   }
 }
