@@ -115,12 +115,15 @@
             severity="danger"
             icon="pi pi-times"
             [outlined]="true"
+            [disabled]="loading()"
             iconPos="left"
           />
           <p-button
             label="Confirmar Compra"
             icon="pi pi-check"
+            [disabled]="selectedTickets.length === 0"
             (click)="createOrder()"
+            [loading]="loading()"
             iconPos="right"
             severity="success"
           />
