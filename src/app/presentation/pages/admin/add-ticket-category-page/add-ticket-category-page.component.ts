@@ -11,8 +11,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { HttpParams } from '@angular/common/http';
 
-import { ToastModule } from 'primeng/toast';            
-import { MessageService } from 'primeng/api';          
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-ticket-category-page',
@@ -24,9 +24,9 @@ import { MessageService } from 'primeng/api';
     InputTextModule,
     InputNumberModule,
     ButtonModule,
-    ToastModule,  
+    ToastModule,
   ],
-  providers: [MessageService],  
+  providers: [MessageService],
   templateUrl: './add-ticket-category-page.component.html',
 })
 export class AddTicketCategoryPageComponent {
@@ -36,15 +36,11 @@ export class AddTicketCategoryPageComponent {
   selectedEventId: number | null = null;
   events: { id: number; title: string }[] = [];
 
-<<<<<<< HEAD
   constructor(
     private eventService: EventApiService,
     private router: Router,
-    private messageService: MessageService     
+    private messageService: MessageService
   ) {}
-=======
-  constructor(private eventService: EventApiService, private router: Router) {}
->>>>>>> f1d0c462844253dd5be6b02f8acf529b48f45bae
 
   ngOnInit() {
     const params = new HttpParams().set('pageSize', 200);
