@@ -9,7 +9,6 @@ export type CreateOrderRequestDTO = {
   customerId: number;
 };
 
-
 export type OrderResponseDTO = {
   id: number;
   items: Array<{
@@ -28,10 +27,23 @@ export type ResponseCreateCheckoutDTO = {
     href: string;
     method: string;
   }>;
-  status: string; 
+  status: string;
 };
 
 export type ResponseOrderDTO = {
   order: OrderResponseDTO;
   checkout: ResponseCreateCheckoutDTO;
+};
+
+export type OrderDTO = {
+  id: number;
+  items: ItemOrderDTO[];
+  status: 'WAITING_PAYMENT' | 'CANCELLED' | 'COMPLETED';
+};
+
+export type ItemOrderDTO = {
+  ticketCategoryDescription: string;
+  ticketCategoryQuantity: number;
+  eventId: number;
+  ticketCategoryPrice: number;
 };
