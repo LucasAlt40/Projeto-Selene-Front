@@ -12,12 +12,14 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { IftaLabelModule } from 'primeng/iftalabel';
 import { PasswordModule } from 'primeng/password';
 import { CookieService } from 'ngx-cookie-service';
 import { InputMaskModule } from 'primeng/inputmask';
 import { AuthApiService } from '../../../../core/api/services/auth.api.service';
 import { DocumentValidators } from '../../../../core/validators/Document.validator';
 import { AuthService } from '../../../../core/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register-page',
@@ -29,9 +31,10 @@ import { AuthService } from '../../../../core/services/auth.service';
     ButtonModule,
     RouterModule,
     InputMaskModule,
+    IftaLabelModule,
+    CommonModule,
   ],
   templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.css',
 })
 export class RegisterPageComponent {
   registerForm: FormGroup;

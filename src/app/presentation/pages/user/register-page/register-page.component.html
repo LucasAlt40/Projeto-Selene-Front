@@ -1,153 +1,138 @@
-<form
-  [formGroup]="registerForm"
-  (ngSubmit)="onSubmit()"
-  class="max-w-sm mx-auto mt-10 p-6 border-gray-500 border-2 rounded-2xl shadow"
->
-  <h2 class="text-2xl font-bold mb-6 text-center">Cadastro</h2>
-  <p class="text-center mb-6"></p>
+<main class="flex items-center justify-center h-screen">
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    class="w-[600px] flex flex-col flex-wrap gap-3"
+  >
+    <h3 class="text-lg text-center">Criar conta</h3>
 
-  <div class="field mb-4 w-full">
-    <label for="email" class="block mb-2 font-semibold text-900"
-      >Email <span class="text-red-500">*</span></label
-    >
-    <input
-      id="email"
-      type="text"
-      pInputText
-      formControlName="email"
-      placeholder="Digite seu email"
-      class="w-full"
-    />
+    <p-iftalabel>
+      <input
+        id="email"
+        type="text"
+        pSize="small"
+        pInputText
+        formControlName="email"
+        placeholder="ex: example@gmail.com"
+        class="w-full"
+        [ngClass]="
+          registerForm.get('email')?.invalid &&
+          registerForm.get('email')?.touched
+            ? 'ng-dirty ng-invalid'
+            : undefined
+        "
+      />
+      <label for="email">Email</label>
+    </p-iftalabel>
 
-    @if ( registerForm.get('email')?.invalid &&
-    registerForm.get('email')?.touched) {
-    <div class="text-red-500 text-sm mt-1">
-      @if(registerForm.get('email')?.errors?.['email']) { 
-        Email inválido.
-      } @if(registerForm.get('email')?.errors?.['required']) { 
-        Email é obrigatório. 
-      }
-    </div>
-    }
-  </div>
+    <p-iftalabel>
+      <input
+        id="name"
+        type="text"
+        pSize="small"
+        pInputText
+        formControlName="name"
+        placeholder="ex: Maria Silva"
+        class="w-full"
+        [ngClass]="
+          registerForm.get('name')?.invalid && registerForm.get('name')?.touched
+            ? 'ng-dirty ng-invalid'
+            : undefined
+        "
+      />
+      <label for="name">Nome Completo</label>
+    </p-iftalabel>
 
-  <div class="field mb-4 w-full">
-    <label for="name" class="block mb-2 font-semibold text-900"
-      >Nome Completo <span class="text-red-500">*</span></label
-    >
-    <input
-      id="name"
-      type="text"
-      pInputText
-      formControlName="name"
-      placeholder="Digite seu nome completo"
-      class="w-full"
-    />
-    @if ( registerForm.get('name')?.invalid &&
-    registerForm.get('name')?.touched) {
-    <div class="text-red-500 text-sm mt-1">
-      @if(registerForm.get('name')?.errors?.['required']) {
-        Nome completo é obrigatório.
-      }
-    </div>
-    }
-  </div>
-  <div class="field mb-4 w-full">
-    <label for="document" class="block mb-2 font-semibold text-900">
-      CPF <span class="text-red-500">*</span></label
-    >
-    <p-input-mask
-      id="document"
-      formControlName="document"
-      placeholder="000.000.000-00"
-      mask="999.999.999-99"
-      appInputValidation
-      class="w-full"
-    />
-    @if ( registerForm.get('document')?.invalid &&
-    registerForm.get('document')?.touched) {
-    <div class="text-red-500 text-sm mt-1">
-      @if(registerForm.get('document')?.errors?.['invalidCPF']) { 
-        CPF inválido.
-      } @if(registerForm.get('document')?.errors?.['required']) { 
-        CPF é obrigatório. 
-      }
-    </div>
-    }
-  </div>
-  <div class="field mb-4 w-full">
-    <label for="phone" class="block mb-2 font-semibold text-900"
-      >Telefone <span class="text-red-500">*</span></label
-    >
-    <p-input-mask
-      id="phone"
-      formControlName="phone"
-      placeholder="(XX) XXXXX-XXXX"
-      mask="(99) 99999-9999"
-      class="w-full"
-    />
-    @if ( registerForm.get('phone')?.invalid &&
-    registerForm.get('phone')?.touched) {
-    <div class="text-red-500 text-sm mt-1">
-      @if(registerForm.get('phone')?.errors?.['required']) { 
-        Telefone é obrigatório. 
-      }
-    </div>
-    }
-  </div>
+    <p-iftalabel>
+      <p-input-mask
+        id="document"
+        formControlName="document"
+        placeholder="000.000.000-00"
+        mask="999.999.999-99"
+        appInputValidation
+        class="w-full"
+        [ngClass]="
+          registerForm.get('document')?.invalid &&
+          registerForm.get('document')?.touched
+            ? 'ng-dirty ng-invalid'
+            : undefined
+        "
+      />
+      <label for="document">CPF</label>
+    </p-iftalabel>
 
-  <div class="field mb-4 w-full">
-    <label for="password" class="block mb-2 font-semibold text-900"
-      >Senha <span class="text-red-500">*</span></label
-    >
-    <p-password
-      id="password"
-      formControlName="password"
-      placeholder="Digite sua senha"
-      [feedback]="false"
+    <p-iftalabel>
+      <p-input-mask
+        id="phone"
+        formControlName="phone"
+        placeholder="(99) 99999-9999"
+        mask="(99) 99999-9999"
+        class="w-full"
+        [ngClass]="
+          registerForm.get('phone')?.invalid &&
+          registerForm.get('phone')?.touched
+            ? 'ng-dirty ng-invalid'
+            : undefined
+        "
+      />
+      <label for="phone">Telefone</label>
+    </p-iftalabel>
+
+    <p-iftalabel>
+      <p-password
+        id="password"
+        formControlName="password"
+        placeholder="***"
+        [feedback]="false"
+        styleClass="w-full"
+        [ngClass]="
+          registerForm.get('password')?.invalid &&
+          registerForm.get('password')?.touched
+            ? 'ng-dirty ng-invalid'
+            : undefined
+        "
+      />
+      <label for="password">Senha</label>
+    </p-iftalabel>
+
+    <p-iftalabel>
+      <p-password
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        placeholder="***"
+        [feedback]="false"
+        styleClass="w-full"
+        [ngClass]="
+          registerForm.get('confirmPassword')?.invalid &&
+          registerForm.get('confirmPassword')?.touched
+            ? 'ng-dirty ng-invalid'
+            : undefined
+        "
+      />
+      <label for="confirmPassword">Confirmação de Senha</label>
+    </p-iftalabel>
+
+    <p-button
+      size="small"
+      type="submit"
+      label="Criar conta"
       styleClass="w-full"
-      class="w-full"
     />
 
-    @if ( registerForm.get('password')?.invalid &&
-    registerForm.get('password')?.touched) {
-    <div class="text-red-500 text-sm mt-1">
-      @if(registerForm.get('password')?.errors?.['required']) { 
-        Senha é obrigatória. 
-      }
+    <div>
+      <p class="text-sm text-center mb-3 text-shadow-gray-500">
+        Já possui uma conta?
+      </p>
+
+      <a
+        routerLink="/login"
+        severity="secondary"
+        size="small"
+        class="w-full"
+        pButton
+      >
+        <span pButtonLabel>Acessar conta</span>
+      </a>
     </div>
-    }
-  </div>
-
-  <div class="field mb-4 w-full">
-    <label for="confirmPassword" class="block mb-2 font-semibold text-900"
-      >Confirmação de Senha <span class="text-red-500">*</span></label
-    >
-    <p-password
-      id="confirmPassword"
-      formControlName="confirmPassword"
-      placeholder="Confirme sua senha"
-      [feedback]="false"
-      styleClass="w-full"
-      class="w-full"
-    />
-    @if (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) {
-      <div class="text-red-500 text-sm mt-1">
-        @if(registerForm.get('confirmPassword')?.errors?.['required']) {
-          Confirmação de senha é obrigatória
-        }
-      </div>
-    }
-    @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
-      <div class="text-red-500 text-sm mt-1">
-        As senhas não coincidem
-      </div>
-    }
-  </div>
-
-  <p class="text-end mb-6 mt-4 text-gray-400">
-    Já tem uma conta? <a routerLink="/login" class="text-blue-500">Entrar</a>
-  </p>
-
-  <p-button type="submit" label="Entrar" class="w-full" styleClass="w-full" />
-</form>
+  </form>
+</main>

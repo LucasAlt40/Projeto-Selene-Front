@@ -1,45 +1,45 @@
-<form
-  [formGroup]="loginForm"
-  (ngSubmit)="onSubmit()"
-  class="max-w-sm mx-auto mt-10 p-6 border-gray-500 border-2 rounded-2xl shadow"
->
-
-  <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-  <p class="text-center mb-6">
-
-  <div class="field mb-4 w-full">
-    <label for="email" class="block mb-2 font-semibold text-900">Email</label>
+<main class="flex items-center justify-center h-screen">
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="w-[300px] flex flex-col gap-3"
+  >
+    <h3 class="text-lg text-center">Acessar</h3>
     <input
-      id="email"
-      type="text"
       pInputText
+      id="email"
+      pSize="small"
       formControlName="email"
-      placeholder="Digite seu email"
-      class="w-full"
+      type="text"
+      placeholder="email"
     />
-  </div>
 
-  <div class="field  w-full">
-    <label for="password" class="block mb-2 font-semibold text-900"
-      >Senha</label
-    >
     <p-password
+      size="small"
       id="password"
       formControlName="password"
-      placeholder="Digite sua senha"
-      [feedback]="false"
+      placeholder="senha"
       styleClass="w-full"
-      class="w-full"
+      [toggleMask]="true"
+      [feedback]="false"
     />
-  </div>
-  <p class="text-end mb-6 mt-4 text-gray-400">Não tem uma conta? <a routerLink="/register" class="text-blue-500">Registrar</a></p>
 
+    <p-button size="small" type="submit" label="Entrar" styleClass="w-full" />
 
-  <p-button
-    type="submit"
-    label="Entrar"
-    class="w-full"
-    styleClass="w-full"
-    [disabled]="loginForm.invalid"
-  />
-</form>
+    <div>
+      <p class="text-sm text-center mb-3 text-shadow-gray-500">
+        Não tem uma conta?
+      </p>
+
+      <a
+        routerLink="/cadastrar"
+        severity="secondary"
+        size="small"
+        class="w-full"
+        pButton
+      >
+        <span pButtonLabel>Criar conta</span>
+      </a>
+    </div>
+  </form>
+</main>

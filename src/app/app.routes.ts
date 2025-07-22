@@ -24,7 +24,7 @@ export const routes: Routes = [
     component: LoginPageComponent,
   },
   {
-    path: 'register',
+    path: 'cadastrar',
     canActivate: [loginGuard],
     component: RegisterPageComponent,
   },
@@ -67,8 +67,14 @@ export const routes: Routes = [
       { path: 'eventos/:id', component: EventDetailsPageComponent },
       { path: 'criar-evento', component: AddEventPageComponent },
       { path: 'categorias-evento', component: EventCategoryPageComponent },
-      { path: 'categorias-evento/criar', component: AddEventCategoryPageComponent,},
-      { path: 'categorias-ingresso/criar', component: AddTicketCategoryPageComponent },
+      {
+        path: 'categorias-evento/criar',
+        component: AddEventCategoryPageComponent,
+      },
+      {
+        path: 'categorias-ingresso/criar',
+        component: AddTicketCategoryPageComponent,
+      },
       { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     ],
   },

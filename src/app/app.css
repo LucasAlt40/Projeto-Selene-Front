@@ -2,4 +2,7 @@
   width: 100%;
 }
 
-
+::ng-deep input::placeholder {
+  color: #6b7280 !important;
+  opacity: 0.5 !important;
+}
