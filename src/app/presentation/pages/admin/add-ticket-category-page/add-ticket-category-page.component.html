@@ -1,3 +1,5 @@
+<p-toast></p-toast>
+
 <main class="max-w-xl mx-auto mt-10 p-6 border-gray-300 border-2 rounded-2xl shadow">
   <form (ngSubmit)="onSubmit()" #form="ngForm" class="space-y-6">
     <h2 class="text-2xl font-bold mb-4">Criar Categoria de Ingresso</h2>
@@ -14,7 +16,7 @@
         [showClear]="true"
         [filter]="true"
         required
-        ></p-dropdown>
+      ></p-dropdown>
     </div>
 
     <div class="field">
@@ -39,7 +41,7 @@
         [min]="1"
         required
         class="w-full"
-      />
+      ></p-inputNumber>
     </div>
 
     <div class="field">
@@ -54,7 +56,7 @@
         [min]="0"
         required
         class="w-full"
-      />
+      ></p-inputNumber>
     </div>
 
     <div class="flex justify-end mt-4">
