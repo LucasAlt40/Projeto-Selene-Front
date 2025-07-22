@@ -1,38 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { AuthApiService } from '../api/services/auth.api.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
+
   constructor(
-    private authService: AuthApiService,
+    private authApi: AuthApiService,
     private cookieService: CookieService,
     private router: Router
   ) {}
 
   public authenticateUser(email: string, password: string) {
-    this.authService.login(email, password).subscribe({
-      next: (res) => {
-        const token = res.token;
-        const expiresIn = res.expiresIn;
-        const user = res.user;
+    return this.authApi.login(email, password).pipe(
+      tap(res => {
+        const { token, expiresIn, user } = res;
         const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
+
+        if (token && expiresIn) {
+          this.cookieService.set('auth_token', token, expireDate);
+        }
 
         if (user) {
           this.cookieService.set('auth_user', JSON.stringify(user), expireDate);
         }
 
-        if (token && expiresIn) {
-          this.cookieService.set('auth_token', token, expireDate);
+        // Redireciona com base no tipo de usuário
+        if (user?.isAdmin) {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/event']);
         }
-      },
-      complete: () => {
-        this.router.navigate(['/event']);
-      },
-    });
+      })
+    ).subscribe();
   }
 
   public logout() {
@@ -42,14 +46,16 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    return (
-      this.cookieService.check('auth_token') &&
-      this.cookieService.check('auth_user')
-    );
+    return this.cookieService.check('auth_token') && this.cookieService.check('auth_user');
   }
 
   public getUser() {
-    const user = this.cookieService.get('auth_user');
-    return user ? JSON.parse(user) : null;
+    const userJson = this.cookieService.get('auth_user');
+    return userJson ? JSON.parse(userJson) as { id: number, name: string, isAdmin: boolean } : null;
+  }
+
+  public isAdmin(): boolean {
+    const user = this.getUser();
+    return user?.isAdmin ?? false;
   }
 }

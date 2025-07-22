@@ -1,27 +1,40 @@
-// auth.interceptor.ts
 import { HttpInterceptorFn } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AuthService } from '../../services/auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
   const router = inject(Router);
   const messageService = inject(MessageService);
   const cookieService = inject(CookieService);
+
   const token = cookieService.get('auth_token');
 
   const excludedEndpoints = ['/auth'];
   const isApiRequest = req.url.startsWith(environment.apiUrl);
-  const isExcludedEndpoint = excludedEndpoints.some((endpoint) =>
+  const isExcluded = excludedEndpoints.some((endpoint) =>
     req.url.includes(endpoint)
   );
 
-  if (!authService.isAuthenticated()) {
-    router.navigate(['/home']);
+  if (!isApiRequest) {
+    return next(req);
+  }
+
+  if (isExcluded) {
+    return next(req);
+  }
+
+  if (token) {
+    const authReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return next(authReq);
+  } else {
+    router.navigate(['/login']);
     messageService.add({
       severity: 'info',
       summary: 'Sessão Expirada',
@@ -30,15 +43,4 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     });
     return next(req);
   }
-
-  if (isApiRequest && !isExcludedEndpoint && token) {
-    const authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return next(authReq);
-  }
-
-  return next(req);
 };

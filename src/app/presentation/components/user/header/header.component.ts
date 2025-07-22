@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../../core/services/auth.service';
 import { MenuModule } from 'primeng/menu';
@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MenuModule, ButtonModule],
+  imports: [MenuModule, ButtonModule, RouterModule],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {

@@ -2,7 +2,7 @@
   class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/30 border-b border-gray-300"
 >
   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-    <h1 class="text-xl font-bold cursor-pointer" routerLink="/">Selene</h1>
+    <h1 class="text-xl font-bold cursor-pointer" routerLink="/eventos">Selene</h1>
 
     <div>
       <p-button
@@ -15,7 +15,7 @@
         aria-controls="menu"
       />
 
-      <p-menu #menu [popup]="true" [model]="items" id="menu" />
+      <p-menu #menu appendTo="body" [popup]="true" [model]="items" id="menu" />
     </div>
   </div>
 </header>

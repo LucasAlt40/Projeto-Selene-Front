@@ -32,7 +32,7 @@ export class ListOrdersPageComponent {
 
   ngOnInit() {
     this.orderService
-      .getAllOrdersByCustomer(this.authService.getUser().id)
+      .getAllOrdersByCustomer(this.authService.getUser()!.id)
       .subscribe({
         next: (res) => {
           this.orders = res;

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginPageComponent } from './presentation/pages/login-page/login-page.component';
-import { authGuard } from './core/guards/auth.guard';
 import { loginGuard } from './core/guards/login.guard';
 import { EventPageComponent } from './presentation/pages/admin/event-page/event-page.component';
 import { EventCategoryPageComponent } from './presentation/pages/admin/event-category-page/event-category-page.component';
@@ -16,6 +15,8 @@ import { AddEventCategoryPageComponent } from './presentation/pages/admin/add-ev
 import { AddTicketCategoryPageComponent } from './presentation/pages/admin/add-ticket-category-page/add-ticket-category-page.component';
 import { ListOrdersPageComponent } from './presentation/pages/user/list-orders-page/list-orders-page.component';
 import { LayoutComponent } from './presentation/components/admin/layout/layout.component';
+import { adminGuard } from './core/guards/admin.guard';
+import { userGuard } from './core/guards/user.guard';
 
 export const routes: Routes = [
   {
@@ -31,7 +32,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutUserComponent,
-    canActivate: [authGuard],
+    canActivate: [userGuard],
     children: [
       {
         path: '',
@@ -58,7 +59,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: LayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [adminGuard],
     children: [
       { path: '', component: EventPageComponent },
       { path: 'eventos', component: EventPageComponent },

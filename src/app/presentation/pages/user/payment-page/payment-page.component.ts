@@ -87,7 +87,7 @@ export class PaymentPageComponent {
   }
 
   createOrder() {
-    const customerId = this.authService.getUser()?.id;
+    const customerId = this.authService.getUser()!.id;
     const tickets = this.selectedTickets.map((ticket) => ({
       eventId: +this.eventId!,
       categoryId: ticket.id,

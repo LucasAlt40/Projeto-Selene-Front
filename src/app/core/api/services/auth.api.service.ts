@@ -25,6 +25,7 @@ export class AuthApiService {
       user: {
         id: string;
         name: string;
+        isAdmin: boolean;
       };
     }>(`${this.apiUrl}/login`, {
       email,
