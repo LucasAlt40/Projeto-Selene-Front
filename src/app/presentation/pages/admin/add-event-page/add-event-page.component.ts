@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
-
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
-import { EventApiService } from '../../../../core/api/services/event.api.service';
 import { TextareaModule } from 'primeng/textarea';
+import { MessageService } from 'primeng/api';
+import { EventApiService } from '../../../../core/api/services/event.api.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-add-event-page',
@@ -25,7 +26,9 @@ import { TextareaModule } from 'primeng/textarea';
     DropdownModule,
     DatePickerModule,
     TextareaModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './add-event-page.component.html',
 })
 export class AddEventPageComponent {
@@ -53,7 +56,8 @@ export class AddEventPageComponent {
   constructor(
     private eventService: EventApiService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +68,12 @@ export class AddEventPageComponent {
       },
       error: (err) => {
         console.error('Erro ao carregar categorias', err);
-        alert('Erro ao carregar categorias');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao carregar categorias',
+          life: 5000,
+        });
       },
     });
   }
@@ -102,12 +111,22 @@ export class AddEventPageComponent {
       !address.number ||
       !this.selectedCategoryId
     ) {
-      alert('Preencha todos os campos obrigatórios.');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Atenção',
+        detail: 'Preencha todos os campos obrigatórios.',
+        life: 5000,
+      });
       return;
     }
 
     if (!this.selectedImageFile) {
-      alert('Por favor, selecione uma imagem.');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Atenção',
+        detail: 'Por favor, selecione uma imagem.',
+        life: 5000,
+      });
       return;
     }
 
@@ -125,13 +144,23 @@ export class AddEventPageComponent {
 
     this.eventService.createEvent(payload, this.selectedImageFile).subscribe({
       next: (res) => {
-        alert('Evento criado com sucesso!');
-        this.router.navigate(['/admin/eventos/', res.id]);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Evento criado com sucesso!',
+          life: 5000,
+        });
+        this.router.navigate(['/eventos/', res.id]);
         this.loadingSubmit = false;
       },
       error: (err) => {
         console.error('Erro ao criar evento:', err);
-        alert('Erro ao criar evento');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao criar evento',
+          life: 5000,
+        });
         this.loadingSubmit = false;
       },
     });

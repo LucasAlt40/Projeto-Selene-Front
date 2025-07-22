@@ -2,12 +2,17 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
 import { EventApiService } from '../../../../core/api/services/event.api.service';
+
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { HttpParams } from '@angular/common/http';
+
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-ticket-category-page',
@@ -19,7 +24,9 @@ import { HttpParams } from '@angular/common/http';
     InputTextModule,
     InputNumberModule,
     ButtonModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './add-ticket-category-page.component.html',
 })
 export class AddTicketCategoryPageComponent {
@@ -29,7 +36,11 @@ export class AddTicketCategoryPageComponent {
   selectedEventId: number | null = null;
   events: { id: number; title: string }[] = [];
 
-  constructor(private eventService: EventApiService, private router: Router) {}
+  constructor(
+    private eventService: EventApiService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     const params = new HttpParams().set('pageSize', 200);
@@ -37,12 +48,17 @@ export class AddTicketCategoryPageComponent {
     this.eventService.findAll(params).subscribe({
       next: (res) => {
         this.events = res.content.map((event: any) => ({
-          id: (event as any).id,
-          title: (event as any).title,
+          id: event.id,
+          title: event.title,
         }));
       },
       error: () => {
-        console.error('Erro ao carregar eventos');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao carregar eventos',
+          life: 5000,
+        });
       },
     });
   }
@@ -54,7 +70,12 @@ export class AddTicketCategoryPageComponent {
       this.ticketCategoryQuantity === null ||
       this.ticketCategoryPrice === null
     ) {
-      alert('Preencha todos os campos!');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Atenção',
+        detail: 'Preencha todos os campos!',
+        life: 5000,
+      });
       return;
     }
 
@@ -67,11 +88,21 @@ export class AddTicketCategoryPageComponent {
       })
       .subscribe({
         next: () => {
-          alert('Categoria de ingresso criada com sucesso!');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Categoria de ingresso criada com sucesso!',
+            life: 5000,
+          });
           this.router.navigate(['/admin/categorias-evento']);
         },
         error: () => {
-          alert('Erro ao criar categoria de ingresso!');
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Erro ao criar categoria de ingresso!',
+            life: 5000,
+          });
         },
       });
   }

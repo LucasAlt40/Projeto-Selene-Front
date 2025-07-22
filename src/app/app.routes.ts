@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { LoginPageComponent } from './presentation/pages/login-page/login-page.component';
 import { authGuard } from './core/guards/auth.guard';
 import { loginGuard } from './core/guards/login.guard';
-import { LayoutComponent } from './presentation/components/layout/layout.component';
 import { EventPageComponent } from './presentation/pages/admin/event-page/event-page.component';
 import { EventCategoryPageComponent } from './presentation/pages/admin/event-category-page/event-category-page.component';
 import { EventDetailsPageComponent } from './presentation/pages/admin/event-details-page/event-details-page.component';
@@ -16,6 +15,7 @@ import { SearchPageComponent } from './presentation/pages/user/search-page/searc
 import { AddEventCategoryPageComponent } from './presentation/pages/admin/add-event-category-page/add-event-category-page.component';
 import { AddTicketCategoryPageComponent } from './presentation/pages/admin/add-ticket-category-page/add-ticket-category-page.component';
 import { ListOrdersPageComponent } from './presentation/pages/user/list-orders-page/list-orders-page.component';
+import { LayoutComponent } from './presentation/components/admin/layout/layout.component';
 
 export const routes: Routes = [
   {
@@ -24,7 +24,7 @@ export const routes: Routes = [
     component: LoginPageComponent,
   },
   {
-    path: 'register',
+    path: 'cadastrar',
     canActivate: [loginGuard],
     component: RegisterPageComponent,
   },
