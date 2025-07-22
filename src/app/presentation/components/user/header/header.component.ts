@@ -10,7 +10,6 @@ import { ButtonModule } from 'primeng/button';
   standalone: true,
   imports: [MenuModule, ButtonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
   isAuthenticated = false;
