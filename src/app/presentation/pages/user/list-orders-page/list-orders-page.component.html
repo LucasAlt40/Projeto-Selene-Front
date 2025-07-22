@@ -1,0 +1,41 @@
+<h1 class="text-6xl">Meus Pedidos</h1>
+
+@for (order of orders; track $index) {
+<section class="flex flex-col my-4 border border-gray-500">
+  <header class="flex items-center justify-between border-b p-4">
+    <div class="flex gap-2">
+      <h3 class="text-2xl text-gray-400">Pedido</h3>
+      <span class="text-3xl font-bold"># {{ order.id }}</span>
+    </div>
+
+    <p-tag
+      [severity]="orderPaymentSeverity[order.status]"
+      [value]="orderPayment[order.status]"
+    />
+  </header>
+
+  <div class="flex flex-col gap-4 p-4">
+    @for(item of order.items; track $index) {
+    <div class="flex items-center justify-between border-b py-2">
+      <div class="flex flex-col">
+        <span class="text-lg font-medium">{{
+          item.ticketCategoryDescription
+        }}</span>
+        <span class="text-sm text-gray-500">Evento ID: {{ item.eventId }}</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-sm text-gray-500"
+          >Qtd: {{ item.ticketCategoryQuantity }}</span
+        >
+        <span class="text-lg font-semibold">
+          {{
+            (item.ticketCategoryPrice * item.ticketCategoryQuantity) / 100
+              | currency : "BRL" : "symbol"
+          }}
+        </span>
+      </div>
+    </div>
+    }
+  </div>
+</section>
+}
