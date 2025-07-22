@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import {
   CreateOrderRequestDTO,
+  OrderDTO,
   ResponseOrderDTO,
 } from '../../model/order.model';
 import { HttpClient } from '@angular/common/http';
@@ -16,5 +17,11 @@ export class OrderApiService {
 
   public createOrder(order: CreateOrderRequestDTO) {
     return this.http.post<ResponseOrderDTO>(`${this.apiUrl}`, order);
+  }
+
+  public getAllOrdersByCustomer(customerId: number) {
+    return this.http.get<OrderDTO[]>(
+      `${this.apiUrl}/find-by-user/${customerId}`
+    );
   }
 }

@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { PaymentFormComponent } from './presentation/pages/payment-form-example/payment-form.component';
 import { LoginPageComponent } from './presentation/pages/login-page/login-page.component';
 import { authGuard } from './core/guards/auth.guard';
 import { loginGuard } from './core/guards/login.guard';
@@ -15,6 +14,7 @@ import { AddEventPageComponent } from './presentation/pages/admin/add-event-page
 import { SearchPageComponent } from './presentation/pages/user/search-page/search-page.component';
 import { AddEventCategoryPageComponent } from './presentation/pages/admin/add-event-category-page/add-event-category-page.component';
 import { AddTicketCategoryPageComponent } from './presentation/pages/admin/add-ticket-category-page/add-ticket-category-page.component';
+import { ListOrdersPageComponent } from './presentation/pages/user/list-orders-page/list-orders-page.component';
 import { LayoutComponent } from './presentation/components/admin/layout/layout.component';
 
 export const routes: Routes = [
@@ -49,11 +49,9 @@ export const routes: Routes = [
         path: 'buscar',
         component: SearchPageComponent,
       },
-      // Isso aqui é só para teste, depois remover
       {
-        path: 'payment',
-        component: PaymentFormComponent,
-        canActivate: [authGuard],
+        path: 'pedidos',
+        component: ListOrdersPageComponent,
       },
     ],
   },

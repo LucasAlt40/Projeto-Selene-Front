@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { StepperModule } from 'primeng/stepper';
 import { EventApiService } from '../../../../core/api/services/event.api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { EventTicket } from '../../../../core/model/event.model';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -42,6 +42,7 @@ export class PaymentPageComponent {
   constructor(
     private eventService: EventApiService,
     private route: ActivatedRoute,
+    private router: Router,
     private orderService: OrderApiService,
     private authService: AuthService
   ) {}
@@ -106,6 +107,7 @@ export class PaymentPageComponent {
       },
       complete: () => {
         this.loading.set(false);
+        this.router.navigate(['/pedidos'])
       },
     });
   }
