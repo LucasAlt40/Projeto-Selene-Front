@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -31,9 +32,11 @@ export class SidebarComponent {
     {
       label: 'Sair',
       icon: 'pi pi-sign-out',
-      routerLink: ['/login'],
+      command: () => this.authService.logout(),
     },
   ];
+
+  constructor(private authService: AuthService) {}
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
