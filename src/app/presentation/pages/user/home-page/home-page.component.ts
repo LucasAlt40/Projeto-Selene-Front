@@ -14,10 +14,11 @@ import { environment } from '../../../../../environments/environment';
 import { EventApiService } from '../../../../core/api/services/event.api.service';
 import { Event } from '../../../../core/model/event.model';
 import { ListEvent } from '../../../components/list-event/list-event.component';
+import { QrcodeComponent } from '../../../components/qrcode/qrcode.component';
 
 @Component({
   selector: 'app-home-page',
-  imports: [CarouselModule, RouterModule,ListEvent],
+  imports: [CarouselModule, RouterModule,ListEvent, QrcodeComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
