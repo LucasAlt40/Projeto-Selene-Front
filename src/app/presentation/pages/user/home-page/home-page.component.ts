@@ -14,7 +14,6 @@ import { environment } from '../../../../../environments/environment';
 import { EventApiService } from '../../../../core/api/services/event.api.service';
 import { Event } from '../../../../core/model/event.model';
 import { ListEvent } from '../../../components/list-event/list-event.component';
-
 @Component({
   selector: 'app-home-page',
   imports: [CarouselModule, RouterModule,ListEvent],
