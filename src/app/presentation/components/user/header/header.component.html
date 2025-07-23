@@ -2,20 +2,42 @@
   class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/30 border-b border-gray-300"
 >
   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-    <h1 class="text-xl font-bold cursor-pointer" routerLink="/eventos">Selene</h1>
+    <a routerLink="/">
+      <app-logo width="24" />
+    </a>
 
-    <div>
-      <p-button
+    <div class="flex gap-4">
+      <a
+        pButton
         size="small"
         type="button"
-        icon="pi pi-user"
+        icon="pi pi-search"
         [rounded]="true"
-        (click)="menu.toggle($event)"
-        aria-haspopup="true"
-        aria-controls="menu"
-      />
+        [severity]="'secondary'"
+        routerLink="/buscar"
+      >
+      Buscar por eventos
+      </a>
 
-      <p-menu #menu appendTo="body" [popup]="true" [model]="items" id="menu" />
+      <div>
+        <p-button
+          size="small"
+          type="button"
+          icon="pi pi-user"
+          [rounded]="true"
+          (click)="menu.toggle($event)"
+          aria-haspopup="true"
+          aria-controls="menu"
+        />
+
+        <p-menu
+          #menu
+          appendTo="body"
+          [popup]="true"
+          [model]="items"
+          id="menu"
+        />
+      </div>
     </div>
   </div>
 </header>

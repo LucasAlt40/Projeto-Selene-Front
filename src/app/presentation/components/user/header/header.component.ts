@@ -4,11 +4,12 @@ import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../../core/services/auth.service';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
+import { LogoComponent } from "../../logo/logo.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MenuModule, ButtonModule, RouterModule],
+  imports: [MenuModule, ButtonModule, RouterModule, LogoComponent],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
