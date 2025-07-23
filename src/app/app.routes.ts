@@ -17,6 +17,7 @@ import { ListOrdersPageComponent } from './presentation/pages/user/list-orders-p
 import { LayoutComponent } from './presentation/components/admin/layout/layout.component';
 import { adminGuard } from './core/guards/admin.guard';
 import { userGuard } from './core/guards/user.guard';
+import { TicketViewPageComponent } from './presentation/pages/user/ticket-view-page/ticket-view-page.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,11 @@ export const routes: Routes = [
     path: 'cadastrar',
     canActivate: [loginGuard],
     component: RegisterPageComponent,
+  },
+  {
+    path: 'visualizar-tickets/:customerId',
+    canActivate: [userGuard],
+    component: TicketViewPageComponent
   },
   {
     path: '',
