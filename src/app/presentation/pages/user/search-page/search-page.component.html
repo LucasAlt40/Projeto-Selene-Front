@@ -1,49 +1,42 @@
-<div class="p-6 flex flex-col items-center gap-6 w-[80%] mx-auto">
-  <div class="relative w-full max-w-md">
+<div class="container">
+  <p-inputgroup>
+    <p-inputgroup-addon>
+      <i class="pi pi-search"></i>
+    </p-inputgroup-addon>
     <input
       type="text"
       pInputText
       [(ngModel)]="searchTerm"
       (ngModelChange)="filterEvents()"
       placeholder="Pesquisar eventos..."
-      class="pl-10 pr-4 py-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
     />
-    <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
-  </div>
+  </p-inputgroup>
 
-  <div class="flex flex-wrap gap-2 w-full justify-center">
-    @for (cat of categories(); track cat.id) {
-      <button
-        (click)="setCategory(cat.id)"
-        [ngClass]="{
-          'bg-blue-500 text-white': selectedCategoryId() === cat.id,
-          'bg-gray-100 text-gray-800': selectedCategoryId() !== cat.id
-        }"
-        class="px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-blue-400 hover:text-white"
-      >
-        {{ cat.name }}
-      </button>
-    }
-
-    <button
+  <div class="flex gap-3 justify-center my-4">
+    <p-tag
+      [severity]="selectedCategoryId() === 0 ? 'primary' : 'secondary'"
+      value="Todas"
       (click)="setCategory(0)"
-      [ngClass]="{
-        'bg-blue-500 text-white': selectedCategoryId() === 0,
-        'bg-gray-100 text-gray-800': selectedCategoryId() !== 0
-      }"
-      class="px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-red-400 hover:text-white"
-    >
-      Todas
-    </button>
+      class="cursor-pointer"
+    />
+
+    @for (cat of categories(); track cat.id) {
+    <p-tag
+      [severity]="selectedCategoryId() === cat.id ? 'primary' : 'secondary'"
+      value="{{ cat.name }}"
+      (click)="setCategory(cat.id)"
+      class="cursor-pointer"
+    />
+    }
   </div>
 
   <div class="w-full flex flex-col gap-6">
     @for (event of events(); track event.id) {
-      <app-list-event-details
-        [event]="event"
-        [imagesBaseUrl]="imagesBaseUrl"
-        class="w-full"
-      ></app-list-event-details>
+    <app-list-event-details
+      [event]="event"
+      [imagesBaseUrl]="imagesBaseUrl"
+      class="w-full"
+    />
     }
   </div>
 </div>

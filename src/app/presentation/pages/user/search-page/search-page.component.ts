@@ -6,11 +6,23 @@ import { EventApiService } from '../../../../core/api/services/event.api.service
 import { Event } from '../../../../core/model/event.model';
 import { environment } from '../../../../../environments/environment';
 import { HttpParams } from '@angular/common/http';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-search-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, ListEventDetails],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ListEventDetails,
+    InputTextModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    TagModule,
+  ],
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.css'],
 })
@@ -44,15 +56,15 @@ export class SearchPageComponent {
   searchTerm = '';
 
   filterEvents() {
-    let params = new HttpParams().set('title', this.searchTerm).set('pageSize', 2000);
+    let params = new HttpParams()
+      .set('title', this.searchTerm)
+      .set('pageSize', 2000);
     if (this.selectedCategoryId()) {
       params = params.set('categoryId', this.selectedCategoryId());
     }
-    this.eventService
-      .findAll(params)
-      .subscribe((response) => {
-        this.events.set(response.content);
-      });
+    this.eventService.findAll(params).subscribe((response) => {
+      this.events.set(response.content);
+    });
   }
 
   setCategory(categoryId: number) {

@@ -1,61 +1,54 @@
-<div class="flex gap-6 border rounded shadow-lg min-h-[260px] bg-white w-full p-6">
-  <img
-    [src]="imagesBaseUrl + event.previewImageUrl"
-    [alt]="event.title"
-    class="w-60 h-60 object-cover rounded-lg shadow flex-shrink-0"
-  />
-
-  <div class="flex flex-col justify-between w-full">
-    <div>
-      <h2 class="text-2xl font-bold mb-1">{{ event.title }}</h2>
-
-      <div class="flex items-center gap-4 mb-4 text-gray-600 text-sm">
-        <span class="font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
-          {{ event.eventCategoryName }}
-        </span>
-        <span>
-          {{ event.date | date: 'dd/MM/yyyy' }}
-        </span>
-      </div>
-
-      <p class="text-base text-gray-700 line-clamp-3 mb-4">
-        {{ event.description }}
-      </p>
-
-      <div class="text-sm text-gray-600 space-y-1">
-        <div class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="1.5"
-               viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15 10a3 3 0 11-6 0 3 3 0 016 0z"/>
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M19.5 10c0 7.5-7.5 11.25-7.5 11.25S4.5 17.5 4.5 10a7.5 7.5 0 1115 0z"/>
-          </svg>
-          <span>
-            {{ event.address.city }}, {{ event.address.state }}
-          </span>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="1.5"
-               viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"/>
-          </svg>
-          <span>
-            {{ event.address.street }}, {{ event.address.number }} - {{ event.address.neighbourhood }}
-          </span>
+<p-card>
+  <div class="flex gap-6">
+    <img
+      [src]="imagesBaseUrl + event.previewImageUrl"
+      [alt]="event.title"
+      class="w-100 object-cover rounded-lg shadow flex-shrink-0"
+    />
+    <div class="flex flex-col gap-6">
+      <div>
+        <h3 class="text-xl font-bold">{{ event.title }}</h3>
+        <p class="m-0">{{ event.description }}</p>
+        <div class="flex gap-3 my-3">
+          <p-tag
+            severity="info"
+            value="{{ event.eventCategoryName }}"
+            [rounded]="true"
+          />
+          <div class="flex items-center gap-2 text-sm">
+            <i class="pi pi-calendar-clock text-amber-600"></i>
+            <p>{{ event.date | date : "dd/MM/yyyy" }}</p>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <i class="pi pi-map-marker text-red-500"></i>
+            <p>
+              {{ event.address.city }}, {{ event.address.state }}
+              {{ event.address.street }}, {{ event.address.number }} -
+              {{ event.address.neighbourhood }}
+            </p>
+            <p></p>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="flex gap-4 mt-1">
+        <p-button
+          label="Ver detalhes"
+          severity="secondary"
+          class="w-full"
+          [outlined]="true"
+          styleClass="w-full"
+          icon="pi pi-info-circle"
+          [routerLink]="['/evento', event.id]"
+        />
 
-    <div class="flex justify-end mt-6">
-      <a
-        [routerLink]="['/evento', event.id]"
-        class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition"
-      >
-        Comprar
-      </a>
+        <p-button
+          label="Comprar"
+          class="w-full"
+          styleClass="w-full"
+          icon="pi pi-shopping-cart"
+          [routerLink]="['/evento-ingresso', event.id]"
+        />
+      </div>
     </div>
   </div>
-</div>
+</p-card>
