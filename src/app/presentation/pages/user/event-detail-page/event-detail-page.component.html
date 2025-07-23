@@ -1,21 +1,21 @@
-<div class="w-full flex flex-1">
+<div class="flex gap-6">
   @if(loading()) {
   <p-skeleton width="800px" height="400px" />
   } @else {
   <img
     src="{{ imagesBaseUrl + event.previewImageUrl }}"
     [alt]="event.title"
-    class="w-[50%] h-[400px] object-cover rounded-lg shadow-md"
+    class="w-1/2 rounded-lg"
   />
   }
 
-  <div class="flex flex-col w-[50%] px-4">
+  <div class="flex flex-col w-1/2 px-4">
     @if(loading()) {
     <p-skeleton width="800px" height="40px" />
 
     } @else {
-    <div class="flex items-center gap-4 justify-between">
-      <h1 class="text-4xl font-bold">{{ event.title }}</h1>
+    <div>
+      <h1 class="text-2xl font-bold">{{ event.title }}</h1>
       @if(event.status === 'ACTIVE') {
       <p-tag
         value="Em Andamento"
@@ -78,19 +78,24 @@
   @if(loading()) {
   <p-skeleton width="800px" height="40px" />
   } @else {
-  <h2 class="text-xl font-bold mb-4">
-    Eventos relacionados a categoria {{ event.eventCategoryName }}
-  </h2>
+  <div class="flex gap-2 items-center">
+    <h2 class="text-xl font-bold">Eventos relacionados</h2>
+    <p-tag
+      severity="info"
+      [rounded]="true"
+      value="{{ event.eventCategoryName }}"
+    />
+  </div>
   }
-  <div class="flex gap-4 w-full justify-between mt-4">
+  <div class="flex gap-4 w-full mt-4">
     @if(loading()) { @for(i of [1, 2, 3, 4, 5]; track $index) {
     <p-skeleton width="300px" height="300px" />
     } } @else { @for (event of eventsSuggested(); track $index) {
-     <app-list-event
-            [event]="event"
-            [imagesBaseUrl]="imagesBaseUrl"
-            class="flex-shrink-0"
-      ></app-list-event>
+    <app-list-event
+      [event]="event"
+      [imagesBaseUrl]="imagesBaseUrl"
+      class="flex-shrink-0"
+    ></app-list-event>
     } }
   </div>
 </section>

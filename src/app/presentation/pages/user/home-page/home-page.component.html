@@ -1,36 +1,21 @@
-<div class="card">
-  <p-carousel
-    [value]="eventsHighlighted()"
-    [numVisible]="1"
-    [numScroll]="1"
-    [circular]="true"
-    [responsiveOptions]="responsiveOptions"
-    autoplayInterval="3000"
-  >
-    <ng-template let-event #item>
-      <img
-        [src]="imagesBaseUrl + event.previewImageUrl"
-        [alt]="event.title"
-        class="w-full h-120 object-cover rounded"
-      />
-    </ng-template>
-  </p-carousel>
-</div>
+@for (group of categorizedEvents(); track group.category) { @if
+(group.events.length > 0) {
+<section class="container mx-auto my-4">
+  <div class="flex items-center mb-3">
+    <h2 class="text-xl font-bold text-[#19202E] mr-4 whitespace-nowrap">
+      {{ group.category }}
+    </h2>
+    <div class="flex-grow h-px bg-gray-300"></div>
+  </div>
 
-@for (group of categorizedEvents(); track group.category) {
-  @if (group.events.length > 0) {
-    <section class="container mx-auto my-4">
-      <h2 class="text-xl font-bold mb-4">{{ group.category }}</h2>
-
-      <div class="flex gap-4 w-full overflow-x-auto">
-        @for (event of group.events; track event.id) {
-          <app-list-event
-            [event]="event"
-            [imagesBaseUrl]="imagesBaseUrl"
-            class="flex-shrink-0"
-          ></app-list-event>
-        }
-      </div>
-    </section>
-  }
-}
+  <div class="flex gap-4 w-full">
+    @for (event of group.events; track event.id) {
+    <app-list-event
+      [event]="event"
+      [imagesBaseUrl]="imagesBaseUrl"
+      class="flex-shrink-0"
+    />
+    }
+  </div>
+</section>
+} }

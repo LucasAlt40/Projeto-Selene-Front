@@ -17,7 +17,7 @@ import { ListEvent } from '../../../components/list-event/list-event.component';
 
 @Component({
   selector: 'app-home-page',
-  imports: [CarouselModule, RouterModule,ListEvent],
+  imports: [CarouselModule, RouterModule, ListEvent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
@@ -82,7 +82,7 @@ export class HomePageComponent implements OnInit {
     this.categories().forEach((category) => {
       const params = new HttpParams()
         .set('page', '0')
-        .set('pageSize', '5')
+        .set('pageSize', '4')
         .set('categoryId', category.id.toString());
 
       this.eventService.findAll(params).subscribe((response) => {
@@ -97,7 +97,6 @@ export class HomePageComponent implements OnInit {
             events: filtered,
           },
         ]);
-
       });
     });
   }

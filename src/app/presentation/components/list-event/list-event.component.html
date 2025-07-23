@@ -1,18 +1,33 @@
-<div class="p-3 flex-shrink-0 flex flex-col gap-3 rounded shadow min-w-[270px]">
-  <img
-    [src]="imagesBaseUrl + event.previewImageUrl"
-    [alt]="event.title"
-    class="w-68 h-48 object-cover rounded mb-2"
-  />
-  <div>
-    <h3 class="text-lg font-semibold">{{ event.title }}</h3>
-    <p>{{ event.date | date: 'dd/MM/yyyy' }}</p>
+<p-card [style]="{ width: '20rem', overflow: 'hidden' }">
+  <ng-template #header>
+    <img
+      class="w-full object-cover h-40"
+      [src]="imagesBaseUrl + event.previewImageUrl"
+      [alt]="event.title"
+    />
+  </ng-template>
+
+  <p class="m-0 text-xs font-semibold truncate" title="{{ event.title }}">
+    {{ event.title }}
+  </p>
+
+  <div class="flex gap-2">
+    <i class="text-gray-500 pi pi-calendar-clock"></i>
+    <p class="text-xs text-gray-500 truncate">
+      {{ event.date | date : "dd/MM/yyyy" }}
+    </p>
   </div>
-  <p-button
-    icon="pi pi-info-circle"
-    styleClass="p-button-outlined"
-    label="Ver Detalhes"
-    class="mt-2"
-    [routerLink]="['/evento', event.id]"
-  />
-</div>
+
+  <ng-template #footer>
+    <div class="flex gap-4 mt-1">
+      <p-button
+        icon="pi pi-info-circle"
+        size="small"
+        label="Ver detalhes"
+        variant="outlined"
+        severity="secondary"
+        [routerLink]="['/evento', event.id]"
+      />
+    </div>
+  </ng-template>
+</p-card>
