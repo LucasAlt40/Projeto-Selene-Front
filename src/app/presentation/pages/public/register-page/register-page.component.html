@@ -1,4 +1,4 @@
-<main class="flex items-center justify-center h-screen px-6 md:p-0">
+<main class="flex items-center justify-center px-6 md:p-0">
   <form
     [formGroup]="registerForm"
     (ngSubmit)="onSubmit()"
@@ -23,6 +23,14 @@
         "
       />
       <label for="email">Email</label>
+      @if ( registerForm.get('email')?.invalid &&
+      registerForm.get('email')?.touched) {
+      <div class="text-red-500 text-sm mt-1">
+        @if(registerForm.get('email')?.errors?.['email']) { Email inválido. }
+        @if(registerForm.get('email')?.errors?.['required']) { Email é
+        obrigatório. }
+      </div>
+      }
     </p-iftalabel>
 
     <p-iftalabel>
@@ -41,6 +49,13 @@
         "
       />
       <label for="name">Nome Completo</label>
+      @if ( registerForm.get('name')?.invalid &&
+      registerForm.get('name')?.touched) {
+      <div class="text-red-500 text-sm mt-1">
+        @if(registerForm.get('name')?.errors?.['required']) { Nome completo é
+        obrigatório. }
+      </div>
+      }
     </p-iftalabel>
 
     <p-iftalabel>
@@ -59,6 +74,14 @@
         "
       />
       <label for="document">CPF</label>
+      @if ( registerForm.get('document')?.invalid &&
+      registerForm.get('document')?.touched) {
+      <div class="text-red-500 text-sm mt-1">
+        @if(registerForm.get('document')?.errors?.['invalidCPF']) { CPF
+        inválido. } @if(registerForm.get('document')?.errors?.['required']) {
+        CPF é obrigatório. }
+      </div>
+      }
     </p-iftalabel>
 
     <p-iftalabel>
@@ -76,6 +99,13 @@
         "
       />
       <label for="phone">Telefone</label>
+      @if ( registerForm.get('phone')?.invalid &&
+      registerForm.get('phone')?.touched) {
+      <div class="text-red-500 text-sm mt-1">
+        @if(registerForm.get('phone')?.errors?.['required']) { Telefone é
+        obrigatório. }
+      </div>
+      }
     </p-iftalabel>
 
     <p-iftalabel>
@@ -93,6 +123,13 @@
         "
       />
       <label for="password">Senha</label>
+      @if ( registerForm.get('password')?.invalid &&
+      registerForm.get('password')?.touched) {
+      <div class="text-red-500 text-sm mt-1">
+        @if(registerForm.get('password')?.errors?.['required']) { Senha é
+        obrigatória. }
+      </div>
+      }
     </p-iftalabel>
 
     <p-iftalabel>
@@ -110,6 +147,16 @@
         "
       />
       <label for="confirmPassword">Confirmação de Senha</label>
+      @if (registerForm.get('confirmPassword')?.invalid &&
+      registerForm.get('confirmPassword')?.touched) {
+      <div class="text-red-500 text-sm mt-1">
+        @if(registerForm.get('confirmPassword')?.errors?.['required']) {
+        Confirmação de senha é obrigatória }
+      </div>
+      } @if (registerForm.hasError('passwordMismatch') &&
+      registerForm.get('confirmPassword')?.touched) {
+      <div class="text-red-500 text-sm mt-1">As senhas não coincidem</div>
+      }
     </p-iftalabel>
 
     <p-button
@@ -120,9 +167,16 @@
     />
 
     <div>
-      <p class="text-sm text-center mb-3 text-shadow-gray-500">
-        Já possui uma conta?
-      </p>
+      <div class="relative flex items-center justify-center mb-3">
+        <div
+          class="absolute inset-x-0 h-px bg-gray-300 top-1/2 transform -translate-y-1/2"
+        ></div>
+        <p
+          class="relative z-10 bg-white px-2 text-sm text-center text-gray-500"
+        >
+          Não tem uma conta?
+        </p>
+      </div>
 
       <a
         routerLink="/login"

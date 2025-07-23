@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthApiService } from '../../../core/api/services/auth.api.service';
 import {
   FormBuilder,
   FormGroup,
@@ -7,13 +6,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { ImageModule } from 'primeng/image';
 
-import { CookieService } from 'ngx-cookie-service';
 import { ButtonModule } from 'primeng/button';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { LogoComponent } from '../../../components/logo/logo.component';
 
 @Component({
   selector: 'app-login-page',
@@ -24,15 +24,18 @@ import { AuthService } from '../../../core/services/auth.service';
     InputTextModule,
     ButtonModule,
     RouterModule,
+    ImageModule,
+    LogoComponent,
   ],
   templateUrl: './login-page.component.html',
 })
 export class LoginPageComponent {
+  loading: boolean = false;
   loginForm: FormGroup;
 
   constructor(private authService: AuthService, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', { validators: [Validators.required, Validators.email] }],
       password: ['', Validators.required],
     });
   }
@@ -41,7 +44,14 @@ export class LoginPageComponent {
     const { email, password } = this.loginForm.value;
 
     if (this.loginForm.valid) {
-      this.authService.authenticateUser(email, password);
+      this.loading = true;
+      this.authService.authenticateUser(email, password).subscribe({
+        complete: () => {
+          this.loading = false;
+        },
+      });
+    } else {
+      this.loginForm.markAllAsTouched();
     }
   }
 }

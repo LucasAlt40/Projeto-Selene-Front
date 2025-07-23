@@ -1,0 +1,74 @@
+<main class="flex items-center justify-center h-screen">
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="w-[300px] flex flex-col gap-3"
+  >
+    <div class="flex justify-center">
+      <app-logo />
+    </div>
+    <h3 class="text-lg text-center">Acessar</h3>
+    <input
+      pInputText
+      id="email"
+      pSize="small"
+      formControlName="email"
+      type="text"
+      placeholder="email"
+    />
+    @if ( loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+    <div class="text-red-500 text-sm mt-1">
+      @if(loginForm.get('email')?.errors?.['email']) { Email inválido. }
+      @if(loginForm.get('email')?.errors?.['required']) { Email é obrigatório. }
+    </div>
+    }
+
+    <p-password
+      size="small"
+      id="password"
+      formControlName="password"
+      placeholder="senha"
+      styleClass="w-full"
+      [toggleMask]="true"
+      [feedback]="false"
+    />
+    @if ( loginForm.get('password')?.invalid &&
+    loginForm.get('password')?.touched) {
+    <div class="text-red-500 text-sm mt-1">
+      @if(loginForm.get('password')?.errors?.['required']) { Senha é
+      obrigatória. }
+    </div>
+    }
+
+    <p-button
+      size="small"
+      type="submit"
+      label="Entrar"
+      styleClass="w-full"
+      [loading]="loading"
+    />
+
+    <div>
+      <div class="relative flex items-center justify-center mb-3">
+        <div
+          class="absolute inset-x-0 h-px bg-gray-300 top-1/2 transform -translate-y-1/2"
+        ></div>
+        <p
+          class="relative z-10 bg-white px-2 text-sm text-center text-gray-500"
+        >
+          Não tem uma conta?
+        </p>
+      </div>
+
+      <a
+        routerLink="/cadastrar"
+        severity="secondary"
+        size="small"
+        class="w-full"
+        pButton
+      >
+        <span pButtonLabel>Criar conta</span>
+      </a>
+    </div>
+  </form>
+</main>

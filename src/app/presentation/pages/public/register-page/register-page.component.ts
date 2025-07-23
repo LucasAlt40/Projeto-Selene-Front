@@ -15,10 +15,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
-import { AuthApiService } from '../../../../core/api/services/auth.api.service';
-import { DocumentValidators } from '../../../../core/validators/Document.validator';
-import { AuthService } from '../../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { AuthApiService } from '../../../../core/api/services/auth.api.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { DocumentValidators } from '../../../../core/validators/Document.validator';
 
 @Component({
   selector: 'app-register-page',
@@ -75,10 +75,9 @@ export class RegisterPageComponent {
 
       this.authApiService.register(formValues).subscribe({
         next: () => {
-          this.authService.authenticateUser(
-            formValues.email,
-            formValues.password
-          );
+          this.authService
+            .authenticateUser(formValues.email, formValues.password)
+            .subscribe();
         },
       });
     } else {

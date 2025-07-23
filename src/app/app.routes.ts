@@ -1,10 +1,8 @@
 import { Routes } from '@angular/router';
-import { LoginPageComponent } from './presentation/pages/login-page/login-page.component';
 import { loginGuard } from './core/guards/login.guard';
 import { EventPageComponent } from './presentation/pages/admin/event-page/event-page.component';
 import { EventCategoryPageComponent } from './presentation/pages/admin/event-category-page/event-category-page.component';
 import { EventDetailsPageComponent } from './presentation/pages/admin/event-details-page/event-details-page.component';
-import { RegisterPageComponent } from './presentation/pages/user/register-page/register-page.component';
 import { HomePageComponent } from './presentation/pages/user/home-page/home-page.component';
 import { EventDetailPageComponent } from './presentation/pages/user/event-detail-page/event-detail-page.component';
 import { LayoutUserComponent } from './presentation/components/user/layout/layout-user.component';
@@ -17,6 +15,8 @@ import { ListOrdersPageComponent } from './presentation/pages/user/list-orders-p
 import { LayoutComponent } from './presentation/components/admin/layout/layout.component';
 import { adminGuard } from './core/guards/admin.guard';
 import { userGuard } from './core/guards/user.guard';
+import { LoginPageComponent } from './presentation/pages/public/login-page/login-page.component';
+import { RegisterPageComponent } from './presentation/pages/public/register-page/register-page.component';
 
 export const routes: Routes = [
   {

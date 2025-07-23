@@ -5,10 +5,9 @@ import { tap } from 'rxjs/operators';
 import { AuthApiService } from '../api/services/auth.api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   constructor(
     private authApi: AuthApiService,
     private cookieService: CookieService,
@@ -17,7 +16,7 @@ export class AuthService {
 
   public authenticateUser(email: string, password: string) {
     return this.authApi.login(email, password).pipe(
-      tap(res => {
+      tap((res) => {
         const { token, expiresIn, user } = res;
         const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
 
@@ -36,7 +35,7 @@ export class AuthService {
           this.router.navigate(['/event']);
         }
       })
-    ).subscribe();
+    );
   }
 
   public logout() {
@@ -46,12 +45,17 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    return this.cookieService.check('auth_token') && this.cookieService.check('auth_user');
+    return (
+      this.cookieService.check('auth_token') &&
+      this.cookieService.check('auth_user')
+    );
   }
 
   public getUser() {
     const userJson = this.cookieService.get('auth_user');
-    return userJson ? JSON.parse(userJson) as { id: number, name: string, isAdmin: boolean } : null;
+    return userJson
+      ? (JSON.parse(userJson) as { id: number; name: string; isAdmin: boolean })
+      : null;
   }
 
   public isAdmin(): boolean {
