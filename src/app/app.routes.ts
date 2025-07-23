@@ -31,7 +31,7 @@ export const routes: Routes = [
     component: RegisterPageComponent,
   },
   {
-    path: 'visualizar-tickets/:customerId',
+    path: 'visualizar-tickets/:eventId',
     canActivate: [userGuard],
     component: TicketViewPageComponent
   },

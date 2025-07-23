@@ -34,7 +34,6 @@ export class EventPageComponent {
 
     this.eventService.findAll(params).subscribe({
       next: (res) => {
-        console.log(res);
 
         this.events = res.content;
         this.totalRecords = res.pageable.total;
