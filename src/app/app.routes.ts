@@ -17,6 +17,7 @@ import { adminGuard } from './core/guards/admin.guard';
 import { userGuard } from './core/guards/user.guard';
 import { LoginPageComponent } from './presentation/pages/public/login-page/login-page.component';
 import { RegisterPageComponent } from './presentation/pages/public/register-page/register-page.component';
+import { TicketViewPageComponent } from './presentation/pages/user/ticket-view-page/ticket-view-page.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,11 @@ export const routes: Routes = [
     path: 'cadastrar',
     canActivate: [loginGuard],
     component: RegisterPageComponent,
+  },
+  {
+    path: 'visualizar-tickets/:customerId',
+    canActivate: [userGuard],
+    component: TicketViewPageComponent
   },
   {
     path: '',

@@ -1,0 +1,5 @@
+<div class="container mx-auto flex flex-col gap-4">
+  @for (ticket of tickets; track $index) {
+  <app-ticket-preview [ticket]="ticket" />
+  }
+</div>
