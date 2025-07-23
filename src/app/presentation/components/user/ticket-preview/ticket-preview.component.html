@@ -34,11 +34,10 @@
         </p>
 
         <div class="flex justify-center my-6">
-          <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=59411694004"
-            alt="QR Code"
-            class="w-32 h-32"
-          />
+          <app-qrcode
+            [value]=`${ticket.id}`
+            [size]="200"
+          ></app-qrcode>
         </div>
 
         <p class="text-center text-xl text-gray-800 font-medium">
