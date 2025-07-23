@@ -1,52 +1,43 @@
-<h1 class="text-6xl">Meus Pedidos</h1>
+<h1 class="text-xl font-bold mb-3">Meus Pedidos</h1>
 
 @for (order of orders; track $index) {
-<section class="flex flex-col my-4 border border-gray-500">
-  <header class="flex items-center justify-between border-b p-4">
-    <div class="flex gap-2">
-      <h3 class="text-2xl text-gray-400">Pedido</h3>
-      <span class="text-3xl font-bold"># {{ order.id }}</span>
-    </div>
+<p-card styleClass="mb-6">
+  <div class="flex justify-between items-center">
+    <h3 class="text-lg font-bold">Pedido #{{ order.id }}</h3>
+    <p-tag
+      [severity]="orderPaymentSeverity[order.status]"
+      [value]="orderPayment[order.status]"
+    />
+  </div>
 
-    <div class="flex gap-4">
-      <p-tag
-        [severity]="orderPaymentSeverity[order.status]"
-        [value]="orderPayment[order.status]"
-      />
+  @if(order.status === 'COMPLETED') {
+  <p-button
+    label="Visualizar Tickets"
+    severity="success"
+    [outlined]="true"
+    severity="secondary"
+    icon="pi pi-eye"
+    [routerLink]="['/visualizar-tickets', order.items[0].eventId]"
+  />
+  }
 
-      @if(order.status === 'COMPLETED') {
-      <p-button
-        label="Visualizar Tickets"
-        severity="success"
-        [outlined]="true"
-        [routerLink]="['/visualizar-tickets', order.items[0].eventId]"
-      />
-      }
-    </div>
-  </header>
+  <p-divider />
 
-  <div class="flex flex-col gap-4 p-4">
+  <div>
     @for(item of order.items; track $index) {
-    <div class="flex items-center justify-between border-b py-2">
-      <div class="flex flex-col">
-        <span class="text-lg font-medium">{{
-          item.ticketCategoryDescription
-        }}</span>
-        <span class="text-sm text-gray-500">Evento ID: {{ item.eventId }}</span>
-      </div>
-      <div class="flex items-center gap-4">
-        <span class="text-sm text-gray-500"
-          >Qtd: {{ item.ticketCategoryQuantity }}</span
-        >
-        <span class="text-lg font-semibold">
-          {{
-            (item.ticketCategoryPrice * item.ticketCategoryQuantity) / 100
-              | currency : "BRL" : "symbol"
-          }}
-        </span>
-      </div>
+    <div class="flex gap-3 items-center">
+      <i class="pi pi-ticket"></i>
+      <p>{{ item.ticketCategoryDescription }}</p>
     </div>
+    <p>Quantidade {{ item.ticketCategoryQuantity }}</p>
+    <p class="font-bold">
+      {{
+        (item.ticketCategoryPrice * item.ticketCategoryQuantity) / 100
+          | currency : "BRL" : "symbol"
+      }}
+    </p>
+    <p-divider />
     }
   </div>
-</section>
+</p-card>
 }

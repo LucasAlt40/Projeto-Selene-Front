@@ -4,12 +4,21 @@ import { OrderApiService } from '../../../../core/api/services/order.api.service
 import { OrderDTO } from '../../../../core/model/order.model';
 import { TagModule } from 'primeng/tag';
 import { CurrencyPipe } from '@angular/common';
-import { Button } from "primeng/button";
+import { Button } from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-list-orders-page',
-  imports: [TagModule, CurrencyPipe, Button, RouterModule],
+  imports: [
+    TagModule,
+    CurrencyPipe,
+    Button,
+    RouterModule,
+    CardModule,
+    DividerModule,
+  ],
   templateUrl: './list-orders-page.component.html',
   styleUrl: './list-orders-page.component.css',
 })
