@@ -63,7 +63,6 @@ export class AddEventPageComponent {
   ngOnInit(): void {
     this.eventService.getCategories().subscribe({
       next: (res) => {
-        console.log('Categorias carregadas:', res);
         this.categories = res;
       },
       error: (err) => {

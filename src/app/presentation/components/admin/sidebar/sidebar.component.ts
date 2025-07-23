@@ -9,6 +9,11 @@ import { AuthService } from '../../../../core/services/auth.service';
   selector: 'app-sidebar',
   imports: [PanelMenuModule, CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
+  styles: `
+    :host {
+      position: fixed;
+    }
+  `,
 })
 export class SidebarComponent {
   isCollapsed = false;

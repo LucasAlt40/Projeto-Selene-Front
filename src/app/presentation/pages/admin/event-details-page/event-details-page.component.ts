@@ -76,11 +76,9 @@ export class EventDetailsPageComponent {
   getEventCategories() {
     this.eventService.getCategories().subscribe({
       next: (res) => {
-        console.log('Categorias carregadas:', res);
         this.categories = res;
       },
       error: (err) => {
-        console.error('Erro ao carregar categorias', err);
         alert('Erro ao carregar categorias');
       },
     });
