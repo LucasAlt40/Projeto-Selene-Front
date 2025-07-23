@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { DividerModule } from 'primeng/divider';
 import { OrderApiService } from '../../../../core/api/services/order.api.service';
 import { AuthService } from '../../../../core/services/auth.service';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-payment-page',
@@ -22,6 +23,7 @@ import { AuthService } from '../../../../core/services/auth.service';
     TagModule,
     DividerModule,
     FormsModule,
+    SkeletonModule,
   ],
   templateUrl: './payment-page.component.html',
   styleUrl: './payment-page.component.css',
@@ -30,6 +32,7 @@ export class PaymentPageComponent {
   tickets: EventTicket[] = [];
   ticketQuantities: { [ticketId: number]: number } = {};
   loading = signal(false);
+  loadingTickets = true;
 
   selectedTickets: {
     id: number;
@@ -50,14 +53,17 @@ export class PaymentPageComponent {
   ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('id');
     if (this.eventId) {
-      this.eventService
-        .getTicketTypesByEventId(+this.eventId)
-        .subscribe((tickets) => {
+      this.eventService.getTicketTypesByEventId(+this.eventId).subscribe({
+        next: (tickets) => {
           this.tickets = tickets.map((ticket) => ({
             ...ticket,
             price: ticket.price / 100,
           }));
-        });
+        },
+        complete: () => {
+          this.loadingTickets = false;
+        },
+      });
     }
   }
 
@@ -107,7 +113,7 @@ export class PaymentPageComponent {
       },
       complete: () => {
         this.loading.set(false);
-        this.router.navigate(['/pedidos'])
+        this.router.navigate(['/pedidos']);
       },
     });
   }

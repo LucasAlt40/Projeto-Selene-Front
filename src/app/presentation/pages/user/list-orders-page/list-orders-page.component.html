@@ -1,43 +1,49 @@
 <h1 class="text-xl font-bold mb-3">Meus Pedidos</h1>
 
-@for (order of orders; track $index) {
-<p-card styleClass="mb-6">
-  <div class="flex justify-between items-center">
-    <h3 class="text-lg font-bold">Pedido #{{ order.id }}</h3>
-    <p-tag
-      [severity]="orderPaymentSeverity[order.status]"
-      [value]="orderPayment[order.status]"
-    />
-  </div>
+@if (!loading) {
+  @for (order of orders; track $index) {
+    <p-card styleClass="mb-6">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-bold">Pedido #{{ order.id }}</h3>
+        <p-tag
+          [severity]="orderPaymentSeverity[order.status]"
+          [value]="orderPayment[order.status]"
+        />
+      </div>
 
-  @if(order.status === 'COMPLETED') {
-  <p-button
-    label="Visualizar Tickets"
-    severity="success"
-    [outlined]="true"
-    severity="secondary"
-    icon="pi pi-eye"
-    [routerLink]="['/visualizar-tickets', order.items[0].eventId]"
-  />
+      @if (order.status === 'COMPLETED') {
+        <p-button
+          label="Visualizar Tickets"
+          severity="success"
+          [outlined]="true"
+          severity="secondary"
+          icon="pi pi-eye"
+          [routerLink]="['/visualizar-tickets', order.items[0].eventId]"
+        />
+      }
+
+      <p-divider />
+
+      <div>
+        @for (item of order.items; track $index) {
+          <div class="flex gap-3 items-center">
+            <i class="pi pi-ticket"></i>
+            <p>{{ item.ticketCategoryDescription }}</p>
+          </div>
+          <p>Quantidade {{ item.ticketCategoryQuantity }}</p>
+          <p class="font-bold">
+            {{
+              (item.ticketCategoryPrice * item.ticketCategoryQuantity) / 100
+                | currency : "BRL" : "symbol"
+            }}
+          </p>
+          <p-divider />
+        }
+      </div>
+    </p-card>
   }
-
-  <p-divider />
-
-  <div>
-    @for(item of order.items; track $index) {
-    <div class="flex gap-3 items-center">
-      <i class="pi pi-ticket"></i>
-      <p>{{ item.ticketCategoryDescription }}</p>
-    </div>
-    <p>Quantidade {{ item.ticketCategoryQuantity }}</p>
-    <p class="font-bold">
-      {{
-        (item.ticketCategoryPrice * item.ticketCategoryQuantity) / 100
-          | currency : "BRL" : "symbol"
-      }}
-    </p>
-    <p-divider />
-    }
-  </div>
-</p-card>
+} @else {
+  @for (i of [1, 2, 3]; track $index) {
+    <p-skeleton styleClass="w-full my-4" class="w-full" height="310px" />
+  }
 }

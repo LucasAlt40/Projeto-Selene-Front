@@ -3,35 +3,42 @@
     <p-step [value]="1">Seleção de Ingressos</p-step>
     <p-step [value]="2">Confirmação</p-step>
   </p-step-list>
+
   <p-step-panels>
     <p-step-panel [value]="1">
       <ng-template #content let-activateCallback="activateCallback">
         <div class="flex gap-30">
           <div class="w-[50%] flex flex-col gap-8">
-            @for (ticket of tickets; track $index) {
-            <div class="flex justify-between items-center p-4 border rounded">
-              <p class="w-[200px]">{{ ticket.description }}</p>
-              <p class="w-[100px] font-bold">
-                {{ ticket.price | currency : "BRL" : "symbol" }}
-              </p>
-              <p-inputnumber
-                [(ngModel)]="ticketQuantities[ticket.id]"
-                [min]="0"
-                [showButtons]="true"
-                buttonLayout="horizontal"
-                spinnerMode="horizontal"
-                inputId="vertical"
-                [inputStyle]="{ width: '3rem' }"
-                (ngModelChange)="updateSelectedTickets(ticket, $event)"
-              >
-                <ng-template #incrementbuttonicon>
-                  <span class="pi pi-plus"></span>
-                </ng-template>
-                <ng-template #decrementbuttonicon>
-                  <span class="pi pi-minus"></span>
-                </ng-template>
-              </p-inputnumber>
-            </div>
+            @if (!loadingTickets) {
+              @for (ticket of tickets; track $index) {
+                <div class="flex justify-between items-center p-4 border rounded">
+                  <p class="w-[200px]">{{ ticket.description }}</p>
+                  <p class="w-[100px] font-bold">
+                    {{ ticket.price | currency : "BRL" : "symbol" }}
+                  </p>
+                  <p-inputnumber
+                    [(ngModel)]="ticketQuantities[ticket.id]"
+                    [min]="0"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    spinnerMode="horizontal"
+                    inputId="vertical"
+                    [inputStyle]="{ width: '3rem' }"
+                    (ngModelChange)="updateSelectedTickets(ticket, $event)"
+                  >
+                    <ng-template #incrementbuttonicon>
+                      <span class="pi pi-plus"></span>
+                    </ng-template>
+                    <ng-template #decrementbuttonicon>
+                      <span class="pi pi-minus"></span>
+                    </ng-template>
+                  </p-inputnumber>
+                </div>
+              }
+            } @else {
+              @for (i of [1, 2, 3, 4, 5]; track $index) {
+                <p-skeleton width="700px" height="82px" />
+              }
             }
           </div>
 
@@ -48,18 +55,18 @@
             <div class="flex flex-col mt-6">
               <p class="font-bold text-2xl mb-4">Itens</p>
               @for (selectedTicket of selectedTickets; track $index) {
-              <div class="flex gap-2.5 items-center w-full">
-                <p>{{ selectedTicket.description }}</p>
-                <p>Quantidade: {{ selectedTicket.quantity }}</p>
-                <p>
-                  Total:
-                  {{
-                    selectedTicket.quantity * selectedTicket.price
-                      | currency : "BRL" : "symbol"
-                  }}
-                </p>
-              </div>
-              <p-divider />
+                <div class="flex gap-2.5 items-center w-full">
+                  <p>{{ selectedTicket.description }}</p>
+                  <p>Quantidade: {{ selectedTicket.quantity }}</p>
+                  <p>
+                    Total:
+                    {{
+                      selectedTicket.quantity * selectedTicket.price
+                        | currency : "BRL" : "symbol"
+                    }}
+                  </p>
+                </div>
+                <p-divider />
               }
             </div>
           </div>
@@ -82,16 +89,16 @@
           <h1 class="text-2xl font-bold">Confirmação de Compra</h1>
           <p>Você está prestes a comprar os seguintes ingressos:</p>
           @for (selectedTicket of selectedTickets; track $index) {
-          <div class="flex justify-between items-center p-4 border rounded">
-            <p>{{ selectedTicket.description }}</p>
-            <p>
-              Quantidade: {{ selectedTicket.quantity }} - Total:
-              {{
-                selectedTicket.quantity * selectedTicket.price
-                  | currency : "BRL" : "symbol"
-              }}
-            </p>
-          </div>
+            <div class="flex justify-between items-center p-4 border rounded">
+              <p>{{ selectedTicket.description }}</p>
+              <p>
+                Quantidade: {{ selectedTicket.quantity }} - Total:
+                {{
+                  selectedTicket.quantity * selectedTicket.price
+                    | currency : "BRL" : "symbol"
+                }}
+              </p>
+            </div>
           }
           <p class="font-bold text-xl mt-4">
             Total Geral:

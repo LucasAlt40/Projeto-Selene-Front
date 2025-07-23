@@ -18,17 +18,15 @@ export class AuthService {
     return this.authApi.login(email, password).pipe(
       tap((res) => {
         const { token, expiresIn, user } = res;
-        const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
 
         if (token && expiresIn) {
-          this.cookieService.set('auth_token', token, expireDate);
+          this.cookieService.set('auth_token', token, res.expiresIn);
         }
 
         if (user) {
-          this.cookieService.set('auth_user', JSON.stringify(user), expireDate);
+          this.cookieService.set('auth_user', JSON.stringify(user), res.expiresIn);
         }
 
-        // Redireciona com base no tipo de usuário
         if (user?.isAdmin) {
           this.router.navigate(['/admin']);
         } else {

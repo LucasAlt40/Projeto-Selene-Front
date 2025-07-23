@@ -8,6 +8,7 @@ import { Button } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-list-orders-page',
@@ -18,7 +19,8 @@ import { DividerModule } from 'primeng/divider';
     RouterModule,
     CardModule,
     DividerModule,
-  ],
+    SkeletonModule
+],
   templateUrl: './list-orders-page.component.html',
   styleUrl: './list-orders-page.component.css',
 })
@@ -36,6 +38,8 @@ export class ListOrdersPageComponent {
     COMPLETED: 'success',
   };
 
+  loading: boolean = true;
+
   constructor(
     private authService: AuthService,
     private orderService: OrderApiService
@@ -47,6 +51,9 @@ export class ListOrdersPageComponent {
       .subscribe({
         next: (res) => {
           this.orders = res;
+        },
+        complete: () => {
+          this.loading = false;
         },
       });
   }

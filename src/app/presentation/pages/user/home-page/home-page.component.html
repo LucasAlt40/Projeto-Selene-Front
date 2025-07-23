@@ -1,21 +1,35 @@
-@for (group of categorizedEvents(); track group.category) { @if
-(group.events.length > 0) {
-<section class="container mx-auto my-4">
-  <div class="flex items-center mb-3">
-    <h2 class="text-xl font-bold text-[#19202E] mr-4 whitespace-nowrap">
-      {{ group.category }}
-    </h2>
-    <div class="flex-grow h-px bg-gray-300"></div>
-  </div>
+@if (!loading) {
+  @for (group of categorizedEvents(); track group.category) {
+    @if (group.events.length > 0) {
+      <section class="container mx-auto my-4">
+        <div class="flex items-center mb-3">
+          <h2 class="text-xl font-bold text-[#19202E] mr-4 whitespace-nowrap">
+            {{ group.category }}
+          </h2>
+          <div class="flex-grow h-px bg-gray-300"></div>
+        </div>
 
-  <div class="flex gap-4 w-full">
-    @for (event of group.events; track event.id) {
-    <app-list-event
-      [event]="event"
-      [imagesBaseUrl]="imagesBaseUrl"
-      class="flex-shrink-0"
-    />
+        <div class="flex gap-4 w-full">
+          @for (event of group.events; track event.id) {
+            <app-list-event
+              [event]="event"
+              [imagesBaseUrl]="imagesBaseUrl"
+              class="flex-shrink-0"
+            />
+          }
+        </div>
+      </section>
     }
-  </div>
-</section>
-} }
+  }
+} @else {
+  @for (i of [1, 2, 3, 4, 5, 6]; track $index) {
+    <div class="flex flex-col gap-4 my-3">
+      <p-skeleton styleClass="w-full" class="w-full" height="20px" />
+      <div class="flex gap-4">
+        @for (i of [1, 2, 3, 4]; track $index) {
+          <p-skeleton height="290px" width="320px" />
+        }
+      </div>
+    </div>
+  }
+}

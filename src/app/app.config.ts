@@ -14,6 +14,7 @@ import { authInterceptor } from './core/api/interceptors/auth.interceptor';
 import { DatePipe } from '@angular/common';
 import { errorHandlerInterceptor } from './core/api/interceptors/error-handler.interceptor';
 import { MessageService } from 'primeng/api';
+import { expiredTokenInterceptor } from './core/api/interceptors/token-expired.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,7 +33,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(
       withFetch(),
-      withInterceptors([authInterceptor, errorHandlerInterceptor])
+      withInterceptors([
+        authInterceptor,
+        errorHandlerInterceptor,
+        expiredTokenInterceptor,
+      ])
     ),
   ],
 };
