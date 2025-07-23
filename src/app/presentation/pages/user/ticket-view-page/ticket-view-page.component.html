@@ -1,5 +1,7 @@
 <div class="container mx-auto flex flex-col gap-4">
-  @for (ticket of tickets; track $index) {
+  @if(loading) { @for (i of [1, 2, 3, 4, 5, 6]; track $index) {
+  <p-skeleton width="860px" height="480px" />
+  } } @else { @for (ticket of tickets; track $index) {
   <app-ticket-preview [ticket]="ticket" />
-  }
+  } }
 </div>

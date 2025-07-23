@@ -11,7 +11,9 @@ export class TicketApiService {
 
   constructor(private http: HttpClient) {}
 
-  public getTicketsByCustomer(customerId: number) {
-    return this.http.get<TicketResponseDto[]>(`${this.apiUrl}/customer/${customerId}`)
+  public getTicketsByCustomer(customerId: number, eventId: number) {
+    return this.http.get<TicketResponseDto[]>(
+      `${this.apiUrl}/customer/${customerId}/event/${eventId}`
+    );
   }
 }

@@ -8,10 +8,21 @@
       <span class="text-3xl font-bold"># {{ order.id }}</span>
     </div>
 
-    <p-tag
-      [severity]="orderPaymentSeverity[order.status]"
-      [value]="orderPayment[order.status]"
-    />
+    <div class="flex gap-4">
+      <p-tag
+        [severity]="orderPaymentSeverity[order.status]"
+        [value]="orderPayment[order.status]"
+      />
+
+      @if(order.status === 'COMPLETED') {
+      <p-button
+        label="Visualizar Tickets"
+        severity="success"
+        [outlined]="true"
+        [routerLink]="['/visualizar-tickets', order.items[0].eventId]"
+      />
+      }
+    </div>
   </header>
 
   <div class="flex flex-col gap-4 p-4">
